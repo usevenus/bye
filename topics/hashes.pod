@@ -1,0 +1,160 @@
+﻿
+=head1 NAME
+
+Venus - Hashes
+
+=cut
+
+=head1 ABSTRACT
+
+Hash Operations in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ name => 'Venus', type => 'planet' });
+
+  $hash->keys;
+
+  # ["name", "type"]
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Hash> wraps Perl hashrefs and provides methods for common hash
+operations. Hashes deref automatically, so they work seamlessly with Perl's
+built-in hash operations.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of hash operations using Venus.
+
+=cut
+
+=over 4
+
+=item hash.0
+
+Use C<keys> and C<values> to list hash contents.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ a => 1, b => 2 });
+
+  my $result = $hash->values;
+
+  # [1, 2] (order may vary)
+
+=back
+
+=over 4
+
+=item hash.1
+
+Use C<exists> to check for key presence.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ name => 'Venus' });
+
+  my $result = $hash->exists('name');
+
+  # 1
+
+=back
+
+=over 4
+
+=item hash.2
+
+Use C<delete> to remove a key and return its value.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ a => 1, b => 2, c => 3 });
+
+  my $result = $hash->delete('b');
+
+  # 2
+
+=back
+
+=over 4
+
+=item hash.3
+
+Use C<count> to get the number of key-value pairs.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ a => 1, b => 2, c => 3 });
+
+  my $result = $hash->count;
+
+  # 3
+
+=back
+
+=over 4
+
+=item hash.4
+
+Use C<merge> to combine hashes, with later values overwriting earlier ones.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ a => 1, b => 2 });
+
+  my $result = $hash->merge({ b => 3, c => 4 });
+
+  # { a => 1, b => 3, c => 4 }
+
+=back
+
+=over 4
+
+=item hash.5
+
+Use C<pairs> to get key-value pairs as an array of arrays.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ x => 10, y => 20 });
+
+  my $result = $hash->pairs;
+
+  # [["x", 10], ["y", 20]] (order may vary)
+
+=back

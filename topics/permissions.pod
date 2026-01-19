@@ -1,0 +1,155 @@
+﻿
+=head1 NAME
+
+Venus - Permissions
+
+=cut
+
+=head1 ABSTRACT
+
+Permissions in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_perm_test.txt');
+
+  $path->write("test");
+
+  $path->chmod(0644);
+
+  my $mode = (stat "$path")[2] & 07777;
+
+  $path->unlink;
+
+  sprintf('%04o', $mode);
+
+  # "0644"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Path> provides methods for file permissions. Use C<chmod> to change
+file mode and C<test> to check file attributes.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of permission operations in Venus.
+
+=cut
+
+=over 4
+
+=item perm.0
+
+Use C<chmod> to set file permissions.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_perm_0.txt');
+
+  $path->write("content");
+
+  $path->chmod(0600);
+
+  my $mode = (stat "$path")[2] & 07777;
+
+  $path->unlink;
+
+  $mode == 0600 ? 'correct' : 'incorrect';
+
+  # "correct"
+
+=back
+
+=over 4
+
+=item perm.1
+
+Use C<test> to check if a file is readable.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_perm_1.txt');
+
+  $path->write("content");
+
+  my $readable = $path->test('r') ? 'readable' : 'not readable';
+
+  $path->unlink;
+
+  $readable;
+
+  # "readable"
+
+=back
+
+=over 4
+
+=item perm.2
+
+Use C<test> to check if a file is writable.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_perm_2.txt');
+
+  $path->write("content");
+
+  my $writable = $path->test('w') ? 'writable' : 'not writable';
+
+  $path->unlink;
+
+  $writable;
+
+  # "writable"
+
+=back
+
+=over 4
+
+=item perm.3
+
+Use C<test> to check if a file is executable.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_perm_3.sh');
+
+  $path->write("#!/bin/bash\necho hello");
+
+  $path->chmod(0755);
+
+  my $executable = $path->test('x') ? 'executable' : 'not executable';
+
+  $path->unlink;
+
+  $executable;
+
+  # "executable"
+
+=back

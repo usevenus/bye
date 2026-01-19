@@ -1,0 +1,127 @@
+﻿
+=head1 NAME
+
+Venus - Random
+
+=cut
+
+=head1 ABSTRACT
+
+Random in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Random;
+
+  my $random = Venus::Random->new(42);
+
+  $random->digit;
+
+  # 5
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Random> provides methods for generating random data including numbers,
+strings, UUIDs, and passwords.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of random generation in Venus.
+
+=cut
+
+=over 4
+
+=item rand.0
+
+Use C<number> to generate random integers.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Random;
+
+  my $random = Venus::Random->new(42);
+
+  my $num = $random->number(1, 100);
+
+  $num >= 1 && $num <= 100 ? 'in range' : 'out of range';
+
+  # "in range"
+
+=back
+
+=over 4
+
+=item rand.1
+
+Use C<letter> to generate random letters.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Random;
+
+  my $random = Venus::Random->new(42);
+
+  my $letter = $random->letter;
+
+  $letter =~ /[a-zA-Z]/ ? 'valid letter' : 'invalid';
+
+  # "valid letter"
+
+=back
+
+=over 4
+
+=item rand.2
+
+Use C<uuid> to generate UUIDs.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Random;
+
+  my $random = Venus::Random->new(42);
+
+  my $uuid = $random->uuid;
+
+  $uuid =~ /^[0-9a-f-]+$/ ? 'valid uuid' : 'invalid';
+
+  # "valid uuid"
+
+=back
+
+=over 4
+
+=item rand.3
+
+Use C<select> to select random elements from a list.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Random;
+
+  my $random = Venus::Random->new(42);
+
+  my $item = $random->select(['a', 'b', 'c']);
+
+  $item =~ /^[abc]$/ ? 'valid select' : 'invalid';
+
+  # "valid select"
+
+=back

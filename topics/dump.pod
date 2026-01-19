@@ -1,0 +1,137 @@
+﻿
+=head1 NAME
+
+Venus - Dump
+
+=cut
+
+=head1 ABSTRACT
+
+Dump in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Dump;
+
+  my $dump = Venus::Dump->new({ name => 'Alice', age => 30 });
+
+  my $encoded = $dump->encode;
+
+  $encoded =~ /name/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Dump> provides Perl data serialization using Data::Dumper style
+format. Use C<encode> to serialize and C<decode> to deserialize.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of data dumping in Venus.
+
+=cut
+
+=over 4
+
+=item dump.0
+
+Use C<encode> to serialize Perl data.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Dump;
+
+  my $dump = Venus::Dump->new([1, 2, 3]);
+
+  my $encoded = $dump->encode;
+
+  $encoded =~ /1/ ? 'has data' : 'empty';
+
+  # "has data"
+
+=back
+
+=over 4
+
+=item dump.1
+
+Use C<decode> to deserialize dumped data.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Dump;
+
+  my $dump = Venus::Dump->new;
+
+  my $decoded = $dump->decode("{foo => 'bar'}");
+
+  $decoded->{foo};
+
+  # "bar"
+
+=back
+
+=over 4
+
+=item dump.2
+
+Encode nested data structures.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Dump;
+
+  my $dump = Venus::Dump->new({
+    user => { name => 'Bob', scores => [10, 20] }
+  });
+
+  my $encoded = $dump->encode;
+
+  $encoded =~ /scores/ ? 'has nested' : 'flat';
+
+  # "has nested"
+
+=back
+
+=over 4
+
+=item dump.3
+
+Round-trip encoding and decoding.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Dump;
+
+  my $data = { x => 1, y => 2 };
+
+  my $encoder = Venus::Dump->new($data);
+
+  my $encoded = $encoder->encode;
+
+  my $decoder = Venus::Dump->new;
+
+  my $decoded = $decoder->decode($encoded);
+
+  $decoded->{x} + $decoded->{y};
+
+  # 3
+
+=back

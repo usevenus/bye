@@ -1,0 +1,137 @@
+﻿
+=head1 NAME
+
+Venus - YAML
+
+=cut
+
+=head1 ABSTRACT
+
+YAML in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Yaml;
+
+  my $yaml = Venus::Yaml->new(value => { name => 'Alice' });
+
+  my $encoded = $yaml->encode;
+
+  $encoded =~ /name: Alice/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Yaml> provides YAML encoding and decoding. Pass data to C<value> and
+call C<encode> to serialize. Call C<decode> with a YAML string to deserialize.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of YAML handling in Venus.
+
+=cut
+
+=over 4
+
+=item yaml.0
+
+Use C<encode> to convert data to YAML.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Yaml;
+
+  my $yaml = Venus::Yaml->new(value => { host => 'localhost', port => 8080 });
+
+  my $encoded = $yaml->encode;
+
+  $encoded =~ /host: localhost/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item yaml.1
+
+Use C<decode> to parse YAML strings.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Yaml;
+
+  my $yaml = Venus::Yaml->new;
+
+  my $decoded = $yaml->decode("---\ncity: NYC\nzip: 10001\n");
+
+  $decoded->{city};
+
+  # "NYC"
+
+=back
+
+=over 4
+
+=item yaml.2
+
+Encode nested structures to YAML.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Yaml;
+
+  my $yaml = Venus::Yaml->new(value => {
+    database => { host => 'db.local', port => 5432 }
+  });
+
+  my $encoded = $yaml->encode;
+
+  $encoded =~ /database:/ ? 'has nested' : 'no nested';
+
+  # "has nested"
+
+=back
+
+=over 4
+
+=item yaml.3
+
+Round-trip encoding and decoding.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Yaml;
+
+  my $data = { items => ['x', 'y', 'z'], count => 3 };
+
+  my $encoder = Venus::Yaml->new(value => $data);
+
+  my $encoded = $encoder->encode;
+
+  my $decoder = Venus::Yaml->new;
+
+  my $decoded = $decoder->decode($encoded);
+
+  $decoded->{count};
+
+  # 3
+
+=back

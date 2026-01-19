@@ -1,0 +1,123 @@
+﻿
+=head1 NAME
+
+Venus - Date Formatting
+
+=cut
+
+=head1 ABSTRACT
+
+Date Formatting in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  $date->rfc822;
+
+  # "Thu, 01 Jan 1970 00:00:00 +0000"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Date> provides multiple formatting methods including C<rfc822>,
+C<rfc3339>, C<iso8601>, and custom C<format> strings.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of date formatting in Venus.
+
+=cut
+
+=over 4
+
+=item fmt.0
+
+Use C<hms> to get hours, minutes, seconds.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(3661);
+
+  $date->hms;
+
+  # "01:01:01"
+
+=back
+
+=over 4
+
+=item fmt.1
+
+Use C<mdy> to get month, day, year.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  $date->mdy;
+
+  # "01-01-1970"
+
+=back
+
+=over 4
+
+=item fmt.2
+
+Use C<rfc3339> for RFC 3339 format.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  my $rfc = $date->rfc3339;
+
+  $rfc =~ /1970-01-01/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item fmt.3
+
+Use C<string> for ISO 8601 string format.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  my $str = $date->string;
+
+  $str =~ /1970-01-01/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back

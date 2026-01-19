@@ -1,0 +1,127 @@
+﻿
+=head1 NAME
+
+Venus - Assert
+
+=cut
+
+=head1 ABSTRACT
+
+Assert in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('string');
+
+  $assert->check('hello') ? 'valid' : 'invalid';
+
+  # "valid"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Assert> provides type assertions with coercions. Create an assertion
+with a type expression and use C<check> to validate or C<coerce> to transform.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of type assertions in Venus.
+
+=cut
+
+=over 4
+
+=item assert.0
+
+Use C<check> to validate types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('number');
+
+  $assert->check(42) ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item assert.1
+
+Check array types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('arrayref');
+
+  $assert->check([1, 2, 3]) ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item assert.2
+
+Use C<maybe> for optional values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('maybe[string]');
+
+  my $valid_undef = $assert->check(undef) ? 'ok' : 'fail';
+
+  my $valid_str = $assert->check('hello') ? 'ok' : 'fail';
+
+  "$valid_undef-$valid_str";
+
+  # "ok-ok"
+
+=back
+
+=over 4
+
+=item assert.3
+
+Use C<either> for union types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('string | number');
+
+  my $check_str = $assert->check('hello');
+
+  my $check_num = $assert->check(42);
+
+  $check_str && $check_num ? 'both valid' : 'failed';
+
+  # "both valid"
+
+=back

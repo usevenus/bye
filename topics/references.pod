@@ -1,0 +1,149 @@
+﻿
+=head1 NAME
+
+Venus - References
+
+=cut
+
+=head1 ABSTRACT
+
+Reference Types in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Code;
+
+  my $code = Venus::Code->new(sub { $_[0] * 2 });
+
+  $code->call(5);
+
+  # 10
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides wrapper classes for Perl's reference types: L<Venus::Scalar> for
+scalar references and L<Venus::Code> for code references (subroutines).
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of reference types in Venus.
+
+=cut
+
+=over 4
+
+=item code.0
+
+Use L<Venus::Code> to wrap a code reference and call it.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Code;
+
+  my $code = Venus::Code->new(sub { shift() + 10 });
+
+  my $result = $code->call(5);
+
+  # 15
+
+=back
+
+=over 4
+
+=item code.1
+
+Use C<curry> to create a new coderef with pre-applied arguments.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Code;
+
+  my $add = Venus::Code->new(sub { $_[0] + $_[1] });
+
+  my $add5 = $add->curry(5);
+
+  my $result = $add5->(3);
+
+  # 8
+
+=back
+
+=over 4
+
+=item code.2
+
+Use C<compose> to chain multiple coderefs together.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Code;
+
+  my $double = Venus::Code->new(sub { $_[0] * 2 });
+
+  my $add1 = sub { $_[0] + 1 };
+
+  my $composed = $double->compose($add1);
+
+  my $result = $composed->(5);
+
+  # 11 (5 * 2 + 1)
+
+=back
+
+=over 4
+
+=item code.3
+
+Use C<rcurry> to create a coderef with arguments appended (right curry).
+
+B<example 1>
+
+  package main;
+
+  use Venus::Code;
+
+  my $greet = Venus::Code->new(sub { "$_[0], $_[1]!" });
+
+  my $hello = $greet->rcurry('World');
+
+  my $result = $hello->('Hello');
+
+  # "Hello, World!"
+
+=back
+
+=over 4
+
+=item scalar.0
+
+Use L<Venus::Scalar> to wrap a scalar reference.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Scalar;
+
+  my $scalar = Venus::Scalar->new(\my $value);
+
+  ${ $scalar->get } = 'hello';
+
+  my $result = ${ $scalar->get };
+
+  # "hello"
+
+=back

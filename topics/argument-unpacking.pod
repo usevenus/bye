@@ -1,0 +1,113 @@
+﻿
+=head1 NAME
+
+Venus - Argument Unpacking
+
+=cut
+
+=head1 ABSTRACT
+
+Typed Argument Unpacking
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'unpack';
+
+  my ($name, $age) = unpack('Alice', 30)->args;
+
+  # ("Alice", 30)
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides the C<unpack> function and L<Venus::Unpack> class for unpacking
+and validating subroutine arguments with type coercion and constraints.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of argument unpacking using Venus.
+
+=cut
+
+=over 4
+
+=item unpack.0
+
+Use C<unpack> with C<args> to extract arguments as a list.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'unpack';
+
+  my ($x, $y) = unpack(10, 20)->args;
+
+  # (10, 20)
+
+=back
+
+=over 4
+
+=item unpack.1
+
+Use C<into> to coerce arguments into specific Venus types.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'unpack';
+
+  my ($name) = unpack('alice')->into('Venus::String');
+
+  $name->titlecase;
+
+  # "Alice"
+
+=back
+
+=over 4
+
+=item unpack.2
+
+Use C<signature> to validate arguments against type expressions.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'unpack';
+
+  my ($name, $age) = unpack('Bob', 25)->signature('string', 'number');
+
+  # ("Bob", 25)
+
+=back
+
+=over 4
+
+=item unpack.3
+
+Use C<cast> to auto-deduce arguments to their Venus types.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'unpack';
+
+  my ($data) = unpack([1, 2, 3])->cast;
+
+  $data->count;
+
+  # 3
+
+=back

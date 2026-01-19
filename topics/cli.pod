@@ -1,0 +1,158 @@
+﻿
+=head1 NAME
+
+Venus - CLI
+
+=cut
+
+=head1 ABSTRACT
+
+CLI in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Cli;
+
+  my $cli = Venus::Cli->new(name => 'mycli');
+
+  $cli->option('name', {
+    help => 'Your name',
+    type => 'string',
+  });
+
+  $cli->parse('--name', 'Alice');
+
+  $cli->option_value('name');
+
+  # "Alice"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Cli> provides a framework for building command-line applications.
+Define options with C<option>, arguments with C<argument>, and use C<parse>
+to process input.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of CLI applications in Venus.
+
+=cut
+
+=over 4
+
+=item cli.0
+
+Define boolean options.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Cli;
+
+  my $cli = Venus::Cli->new(name => 'mycli');
+
+  $cli->option('verbose', {
+    help => 'Verbose output',
+    alias => 'v',
+    type => 'boolean',
+  });
+
+  $cli->parse('--verbose');
+
+  $cli->option_value('verbose') ? 'verbose' : 'quiet';
+
+  # "verbose"
+
+=back
+
+=over 4
+
+=item cli.1
+
+Define numeric options.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Cli;
+
+  my $cli = Venus::Cli->new(name => 'mycli');
+
+  $cli->option('port', {
+    help => 'Port number',
+    type => 'number',
+    default => 8080,
+  });
+
+  $cli->parse('--port', '3000');
+
+  $cli->option_value('port');
+
+  # 3000
+
+=back
+
+=over 4
+
+=item cli.2
+
+Define positional arguments.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Cli;
+
+  my $cli = Venus::Cli->new(name => 'mycli');
+
+  $cli->argument('file', {
+    help => 'Input file',
+    range => '0',
+  });
+
+  $cli->parse('input.txt');
+
+  $cli->argument_value('file');
+
+  # "input.txt"
+
+=back
+
+=over 4
+
+=item cli.3
+
+Use default values for options.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Cli;
+
+  my $cli = Venus::Cli->new(name => 'mycli');
+
+  $cli->option('host', {
+    help => 'Server host',
+    type => 'string',
+    default => 'localhost',
+  });
+
+  $cli->parse;
+
+  $cli->option_value('host');
+
+  # "localhost"
+
+=back

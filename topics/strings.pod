@@ -1,0 +1,119 @@
+﻿
+=head1 NAME
+
+Venus - Strings
+
+=cut
+
+=head1 ABSTRACT
+
+String Operations in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('hello world');
+
+  $string->uppercase;
+
+  # "HELLO WORLD"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::String> provides methods for manipulating string data. Strings
+auto-stringify, so they work seamlessly with Perl's built-in string operators.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of string operations using Venus.
+
+=cut
+
+=over 4
+
+=item string.0
+
+Use C<uppercase> and C<lowercase> to change case.
+
+B<example 1>
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('Hello World');
+
+  my $upper = $string->uppercase;
+
+  # "HELLO WORLD"
+
+=back
+
+=over 4
+
+=item string.1
+
+Use C<camelcase> and C<snakecase> for identifier transformations.
+
+B<example 1>
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('hello world');
+
+  my $camel = $string->camelcase;
+
+  # "helloWorld"
+
+=back
+
+=over 4
+
+=item string.2
+
+Use C<contains> and C<index> to search within strings.
+
+B<example 1>
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('hello world');
+
+  my $found = $string->contains('world');
+
+  # 1
+
+=back
+
+=over 4
+
+=item string.3
+
+Use C<append>, C<prepend>, and C<trim> for string manipulation.
+
+B<example 1>
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('  hello  ');
+
+  my $trimmed = $string->trim;
+
+  # "hello"
+
+=back

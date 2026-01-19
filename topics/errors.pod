@@ -1,0 +1,125 @@
+﻿
+=head1 NAME
+
+Venus - Errors
+
+=cut
+
+=head1 ABSTRACT
+
+Errors in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Error;
+
+  my $error = Venus::Error->new(message => 'Something went wrong');
+
+  $error->message;
+
+  # "Something went wrong"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Error> provides a structured error class with support for messages,
+context, and stack traces. Errors can be thrown and caught using Venus's
+exception handling mechanisms.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of errors in Venus.
+
+=cut
+
+=over 4
+
+=item error.0
+
+Create an error with a message.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Error;
+
+  my $error = Venus::Error->new(message => 'File not found');
+
+  my $result = $error->message;
+
+  # "File not found"
+
+=back
+
+=over 4
+
+=item error.1
+
+Use C<name> to identify error types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Error;
+
+  my $error = Venus::Error->new(
+    name => 'on.file.missing',
+    message => 'File not found'
+  );
+
+  my $result = $error->name;
+
+  # "on.file.missing"
+
+=back
+
+=over 4
+
+=item error.2
+
+Use C<stash> to attach additional context to errors.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Error;
+
+  my $error = Venus::Error->new(message => 'Invalid input');
+
+  $error->stash(field => 'email');
+
+  my $result = $error->stash('field');
+
+  # "email"
+
+=back
+
+=over 4
+
+=item error.3
+
+Errors stringify to their message for easy display.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Error;
+
+  my $error = Venus::Error->new(message => 'Connection failed');
+
+  my $result = "$error";
+
+  # includes "Connection failed"
+
+=back

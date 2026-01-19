@@ -1,0 +1,152 @@
+﻿
+=head1 NAME
+
+Venus - Gathering and Reducing
+
+=cut
+
+=head1 ABSTRACT
+
+Gathering and Reducing in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Gather;
+
+  my $gather = Venus::Gather->new([1, 2, 3, 4, 5]);
+
+  $gather->when(sub { $_ % 2 == 0 })->then(sub { $_ * 10 });
+
+  $gather->none(sub { [] });
+
+  my $result = $gather->result;
+
+  join(',', @$result);
+
+  # "20,40"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Gather> provides pattern matching on collections. Use C<when> and
+C<then> to define conditions and transformations. Items matching a condition
+are transformed by the corresponding C<then> block.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of gathering and reducing in Venus.
+
+=cut
+
+=over 4
+
+=item gather.0
+
+Use C<when> and C<then> to transform matching items.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Gather;
+
+  my $gather = Venus::Gather->new(['apple', 'banana', 'cherry']);
+
+  $gather->when(sub { /^a/ })->then(sub { uc $_ });
+  $gather->when(sub { /^b/ })->then(sub { "fruit:$_" });
+
+  $gather->none(sub { [] });
+
+  my $result = $gather->result;
+
+  join(',', @$result);
+
+  # "APPLE,fruit:banana"
+
+=back
+
+=over 4
+
+=item gather.1
+
+Use C<take> to include matching items unchanged.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Gather;
+
+  my $gather = Venus::Gather->new([1, 2, 3, 4, 5, 6]);
+
+  $gather->when(sub { $_ > 3 })->take;
+
+  $gather->none(sub { [] });
+
+  my $result = $gather->result;
+
+  join(',', @$result);
+
+  # "4,5,6"
+
+=back
+
+=over 4
+
+=item gather.2
+
+Use C<skip> to exclude matching items.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Gather;
+
+  my $gather = Venus::Gather->new([1, 2, 3, 4, 5]);
+
+  $gather->when(sub { $_ % 2 == 0 })->skip;
+  $gather->when(sub { 1 })->take;
+
+  $gather->none(sub { [] });
+
+  my $result = $gather->result;
+
+  join(',', @$result);
+
+  # "1,3,5"
+
+=back
+
+=over 4
+
+=item gather.3
+
+Use C<just> to match exact values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Gather;
+
+  my $gather = Venus::Gather->new(['red', 'green', 'blue']);
+
+  $gather->just('red')->then(sub { '#FF0000' });
+  $gather->just('green')->then(sub { '#00FF00' });
+  $gather->just('blue')->then(sub { '#0000FF' });
+
+  my $result = $gather->result;
+
+  join(',', @$result);
+
+  # "#FF0000,#00FF00,#0000FF"
+
+=back

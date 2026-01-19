@@ -1,0 +1,22 @@
+name: Testing
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    container:
+      image: perl:5.32
+
+    steps:
+    - uses: actions/checkout@v6
+    - name: Advertise Perl Version
+      run: perl -V
+    - name: Install Perl::Critic
+      run: cpanm -qn Perl::Critic
+    - name: Install Project Dependencies
+      run: cpanm -qn --reinstall --installdeps .
+    - name: Critiquing Project
+      run: perlcritic lib tests
+    - name: Testing Project
+      run: prove -Ilib -r tests
+      env:
+        HARNESS_OPTIONS: j9

@@ -1,0 +1,22 @@
+stages:
+  - perl-test
+  - perl-lint
+
+perl-test:
+  stage: perl-test
+  image: "perl:5.32"
+  script:
+    - perl -V
+    - cpanm -qn --reinstall --installdeps .
+    - prove -Ilib -r tests
+
+perl-lint:
+  stage: perl-lint
+  image: "perl:5.32"
+  script:
+    - perl -V
+    - cpanm -qn Perl::Critic
+    - cpanm -qn --reinstall --installdeps .
+    - perlcritic lib tests
+  needs:
+    - perl-test

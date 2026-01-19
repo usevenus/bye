@@ -1,0 +1,149 @@
+﻿
+=head1 NAME
+
+Venus - Regular Expressions
+
+=cut
+
+=head1 ABSTRACT
+
+Regular Expressions in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Regexp;
+
+  my $regexp = Venus::Regexp->new(qr/\d+/);
+
+  $regexp->search('abc 123 xyz');
+
+  # bless(..., "Venus::Search")
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides L<Venus::Regexp> for working with regular expressions,
+L<Venus::Search> for search results, and L<Venus::Replace> for replacements.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of regular expressions in Venus.
+
+=cut
+
+=over 4
+
+=item regexp.0
+
+Use L<Venus::Regexp> to wrap a compiled regex and search strings.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Regexp;
+
+  my $regexp = Venus::Regexp->new(qr/(\w+)/);
+
+  my $search = $regexp->search('hello world');
+
+  my $result = $search->matched;
+
+  # "hello"
+
+=back
+
+=over 4
+
+=item replace.0
+
+Use C<replace> to substitute matched text.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Regexp;
+
+  my $regexp = Venus::Regexp->new(qr/world/);
+
+  my $replace = $regexp->replace('hello world', 'Venus');
+
+  my $result = $replace->get;
+
+  # "hello Venus"
+
+=back
+
+=over 4
+
+=item replace.1
+
+Use the global flag to replace all occurrences.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Regexp;
+
+  my $regexp = Venus::Regexp->new(qr/o/);
+
+  my $replace = $regexp->replace('foo bar boo', 'x', 'g');
+
+  my $result = $replace->get;
+
+  # "fxx bar bxx"
+
+=back
+
+=over 4
+
+=item search.0
+
+Use C<captures> to get captured groups from a search.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Regexp;
+
+  my $regexp = Venus::Regexp->new(qr/(\d+)-(\d+)/);
+
+  my $search = $regexp->search('Phone: 555-1234');
+
+  my $result = $search->captures;
+
+  # ["555", "1234"]
+
+=back
+
+=over 4
+
+=item search.1
+
+Use C<count> to check how many matches were found.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Regexp;
+
+  my $regexp = Venus::Regexp->new(qr/\d+/);
+
+  my $search = $regexp->search('a1 b2 c3');
+
+  my $result = $search->count;
+
+  # 1
+
+=back

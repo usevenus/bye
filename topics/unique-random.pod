@@ -1,0 +1,127 @@
+﻿
+=head1 NAME
+
+Venus - Unique and Random
+
+=cut
+
+=head1 ABSTRACT
+
+Unique and Random in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 2, 3, 3, 3]);
+
+  my $unique = $array->unique;
+
+  join(',', @$unique);
+
+  # "1,2,3"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Array> provides C<unique> to remove duplicates and C<random> to
+select random elements. L<Venus::Set> automatically maintains unique values.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of unique and random operations in Venus.
+
+=cut
+
+=over 4
+
+=item random.0
+
+Use C<random> to get a random element.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([10, 20, 30, 40, 50]);
+
+  my $random = $array->random;
+
+  $array->any(sub { $_[1] == $random }) ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item random.1
+
+Use C<random> on C<Venus::Set> for unique random selection.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Set;
+
+  my $set = Venus::Set->new(['red', 'green', 'blue']);
+
+  my $random = $set->random;
+
+  $set->any(sub { $_[1] eq $random }) ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item unique.0
+
+Use C<unique> to remove duplicate values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['a', 'b', 'a', 'c', 'b', 'a']);
+
+  my $unique = $array->unique;
+
+  join(',', @$unique);
+
+  # "a,b,c"
+
+=back
+
+=over 4
+
+=item unique.1
+
+Use C<Venus::Set> for collections that are always unique.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Set;
+
+  my $set = Venus::Set->new([1, 2, 2, 3, 3, 3, 4, 4, 4, 4]);
+
+  $set->count;
+
+  # 4
+
+=back

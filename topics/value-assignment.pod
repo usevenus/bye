@@ -1,0 +1,112 @@
+﻿
+=head1 NAME
+
+Venus - Value Assignment
+
+=cut
+
+=head1 ABSTRACT
+
+Setting Nested Values
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'sets';
+
+  my $data = { user => { name => 'Elliot' } };
+
+  sets $data, 'user.age' => 30;
+
+  # $data is now { user => { name => 'Elliot', age => 30 } }
+
+  $data
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides the C<sets> function for setting nested values in data
+structures using dot-notation paths. The function mutates the original data
+structure.
+
+B<Important:> The C<sets> function will only set a value if its parent node
+exists. For example, C<sets $data, 'user.auth.login' =E<gt> 'x'> will fail if
+there is no C<user.auth> node to traverse.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of value assignment using Venus.
+
+=cut
+
+=over 4
+
+=item sets.0
+
+Use C<sets> to add a new key to an existing nested hash.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'sets';
+
+  my $data = { user => { name => 'Elliot' } };
+
+  sets $data, 'user.age' => 25;
+
+  # $data is now { user => { name => 'Elliot', age => 25 } }
+
+  $data
+
+=back
+
+=over 4
+
+=item sets.1
+
+Use C<sets> with numeric indices to modify array elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'sets';
+
+  my $data = { items => ['apple', 'banana', 'cherry'] };
+
+  sets $data, 'items.1' => 'blueberry';
+
+  # $data is now { items => ['apple', 'blueberry', 'cherry'] }
+
+  $data
+
+=back
+
+=over 4
+
+=item sets.2
+
+Use C<sets> with multiple path-value pairs to set several values at once.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'sets';
+
+  my $data = { user => { name => 'Elliot' } };
+
+  sets $data, 'user.age' => 25, 'user.city' => 'NYC';
+
+  # $data is now { user => { name => 'Elliot', age => 25, city => 'NYC' } }
+
+  $data
+
+=back

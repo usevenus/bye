@@ -1,0 +1,132 @@
+﻿
+=head1 NAME
+
+Venus - Try
+
+=cut
+
+=head1 ABSTRACT
+
+Try in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Try;
+
+  my $try = Venus::Try->new;
+
+  my $result = $try->call(sub { "success" })->result;
+
+  $result;
+
+  # "success"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Try> provides try-catch-finally functionality for exception handling.
+Use C<call> to define the code, C<default> for error handling, and C<finally>
+for cleanup.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of exception handling in Venus.
+
+=cut
+
+=over 4
+
+=item try.0
+
+Use C<call> to execute code that might fail.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Try;
+
+  my $try = Venus::Try->new;
+
+  my $result = $try->call(sub { 10 + 20 })->result;
+
+  $result;
+
+  # 30
+
+=back
+
+=over 4
+
+=item try.1
+
+Use C<default> to handle any errors.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Try;
+
+  my $try = Venus::Try->new;
+
+  my $result = $try->call(sub { die "oops!" })->default(sub { "recovered" })->result;
+
+  $result;
+
+  # "recovered"
+
+=back
+
+=over 4
+
+=item try.2
+
+Use C<maybe> to return undef on errors.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Try;
+
+  my $try = Venus::Try->new;
+
+  my $result = $try->call(sub { die "fail!" })->maybe->result;
+
+  defined $result ? 'defined' : 'undef';
+
+  # "undef"
+
+=back
+
+=over 4
+
+=item try.3
+
+Use C<finally> for cleanup code.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Try;
+
+  my $cleaned = 0;
+
+  my $try = Venus::Try->new;
+
+  my $result = $try->call(sub { "done" })->finally(sub { $cleaned = 1 })->result;
+
+  "$result-$cleaned";
+
+  # "done-1"
+
+=back

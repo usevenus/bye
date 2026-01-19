@@ -1,0 +1,127 @@
+﻿
+=head1 NAME
+
+Venus - True False
+
+=cut
+
+=head1 ABSTRACT
+
+True False in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::True;
+  use Venus::False;
+
+  my $true = Venus::True->new;
+
+  my $false = Venus::False->new;
+
+  $true ? 'yes' : 'no';
+
+  # "yes"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::True> and L<Venus::False> provide boolean singleton values for
+representing true and false in Venus.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of boolean values in Venus.
+
+=cut
+
+=over 4
+
+=item bool.0
+
+Use Venus::True for true values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::True;
+
+  my $true = Venus::True->new;
+
+  $true ? 'truthy' : 'falsy';
+
+  # "truthy"
+
+=back
+
+=over 4
+
+=item bool.1
+
+Use Venus::False for false values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::False;
+
+  my $false = Venus::False->new;
+
+  $false ? 'truthy' : 'falsy';
+
+  # "falsy"
+
+=back
+
+=over 4
+
+=item bool.2
+
+Compare boolean values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::True;
+  use Venus::False;
+
+  my $true = Venus::True->new;
+
+  my $false = Venus::False->new;
+
+  $true && !$false ? 'logic works' : 'logic broken';
+
+  # "logic works"
+
+=back
+
+=over 4
+
+=item bool.3
+
+Use boolean in conditionals.
+
+B<example 1>
+
+  package main;
+
+  use Venus::True;
+
+  my $enabled = Venus::True->new;
+
+  my $status = $enabled ? 'on' : 'off';
+
+  $status;
+
+  # "on"
+
+=back

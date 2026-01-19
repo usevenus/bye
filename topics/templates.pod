@@ -1,0 +1,142 @@
+﻿
+=head1 NAME
+
+Venus - Templates
+
+=cut
+
+=head1 ABSTRACT
+
+Templates in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Template;
+
+  my $tmpl = Venus::Template->new(
+    value => 'Hello, {{ name }}!',
+    context => { name => 'World' }
+  );
+
+  $tmpl->render;
+
+  # "Hello, World!"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Template> provides simple template rendering with variable
+interpolation, conditionals, and loops. Use C<{{ var }}> for variables,
+C<{{ if var }}> for conditionals, and C<{{ for items }}> for loops.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of templates in Venus.
+
+=cut
+
+=over 4
+
+=item template.0
+
+Use C<{{ var }}> for variable interpolation.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Template;
+
+  my $tmpl = Venus::Template->new(
+    value => 'User: {{ user }}, Role: {{ role }}',
+    context => { user => 'alice', role => 'admin' }
+  );
+
+  $tmpl->render;
+
+  # "User: alice, Role: admin"
+
+=back
+
+=over 4
+
+=item template.1
+
+Use C<{{ if var }}> for conditional rendering.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Template;
+
+  my $tmpl = Venus::Template->new(
+    value => '{{ if premium }}Premium User{{ end premium }}',
+    context => { premium => 1 }
+  );
+
+  $tmpl->render;
+
+  # "Premium User"
+
+=back
+
+=over 4
+
+=item template.2
+
+Use C<{{ if not var }}> for negated conditionals.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Template;
+
+  my $tmpl = Venus::Template->new(
+    value => '{{ if not logged_in }}Please log in{{ end logged_in }}',
+    context => { logged_in => 0 }
+  );
+
+  $tmpl->render;
+
+  # "Please log in"
+
+=back
+
+=over 4
+
+=item template.3
+
+Use C<{{ for items }}> to loop over arrays.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Template;
+
+  my $tmpl = Venus::Template->new(
+    value => '{{ for users }}{{ name }} {{ end users }}',
+    context => {
+      users => [
+        { name => 'Alice' },
+        { name => 'Bob' }
+      ]
+    }
+  );
+
+  my $result = $tmpl->render;
+
+  $result =~ /Alice/ && $result =~ /Bob/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back

@@ -1,0 +1,143 @@
+﻿
+=head1 NAME
+
+Venus - Match
+
+=cut
+
+=head1 ABSTRACT
+
+Match in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Match;
+
+  my $match = Venus::Match->new('hello');
+
+  $match->just('hello')->then('greeting');
+
+  $match->none('unknown');
+
+  $match->result;
+
+  # "greeting"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Match> provides pattern matching with C<just>/C<then> clauses.
+Match values or use callbacks for complex conditions.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of pattern matching in Venus.
+
+=cut
+
+=over 4
+
+=item match.0
+
+Use C<just> and C<then> for exact matches.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Match;
+
+  my $match = Venus::Match->new('red');
+
+  $match->just('red')->then('stop');
+
+  $match->just('green')->then('go');
+
+  $match->none('wait');
+
+  $match->result;
+
+  # "stop"
+
+=back
+
+=over 4
+
+=item match.1
+
+Use C<none> for default values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Match;
+
+  my $match = Venus::Match->new('yellow');
+
+  $match->just('red')->then('stop');
+
+  $match->just('green')->then('go');
+
+  $match->none('caution');
+
+  $match->result;
+
+  # "caution"
+
+=back
+
+=over 4
+
+=item match.2
+
+Use callbacks for dynamic results.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Match;
+
+  my $match = Venus::Match->new(10);
+
+  $match->when(sub { $_[0] > 5 })->then('big');
+
+  $match->none('small');
+
+  $match->result;
+
+  # "big"
+
+=back
+
+=over 4
+
+=item match.3
+
+Use C<then> with callbacks for computed values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Match;
+
+  my $match = Venus::Match->new(5);
+
+  $match->just(5)->then(sub { $_[0] * 2 });
+
+  $match->none(0);
+
+  $match->result;
+
+  # 10
+
+=back

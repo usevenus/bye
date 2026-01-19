@@ -1,0 +1,166 @@
+﻿
+=head1 NAME
+
+Venus - Arrays
+
+=cut
+
+=head1 ABSTRACT
+
+Array Operations in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3]);
+
+  $array->push(4, 5);
+
+  $array->get;
+
+  # [1, 2, 3, 4, 5]
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Array> wraps Perl arrayrefs and provides methods for common array
+operations. Arrays deref automatically, so they work seamlessly with Perl's
+built-in array operations.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of array operations using Venus.
+
+=cut
+
+=over 4
+
+=item array.0
+
+Use C<push> and C<pop> to add and remove elements from the end.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3]);
+
+  $array->push(4);
+
+  my $result = $array->pop;
+
+  # 4
+
+=back
+
+=over 4
+
+=item array.1
+
+Use C<unshift> and C<shift> to add and remove elements from the beginning.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([2, 3, 4]);
+
+  $array->unshift(1);
+
+  my $result = $array->shift;
+
+  # 1
+
+=back
+
+=over 4
+
+=item array.2
+
+Use C<count> and C<length> to get the number of elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['a', 'b', 'c', 'd']);
+
+  my $result = $array->count;
+
+  # 4
+
+=back
+
+=over 4
+
+=item array.3
+
+Use C<first> and C<last> to access elements at the ends.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([10, 20, 30]);
+
+  my $result = $array->first;
+
+  # 10
+
+=back
+
+=over 4
+
+=item array.4
+
+Use C<join> to concatenate elements into a string.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['a', 'b', 'c']);
+
+  my $result = $array->join('-');
+
+  # "a-b-c"
+
+=back
+
+=over 4
+
+=item array.5
+
+Use C<reverse> to reverse the order of elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3]);
+
+  my $result = $array->reverse;
+
+  # [3, 2, 1]
+
+=back

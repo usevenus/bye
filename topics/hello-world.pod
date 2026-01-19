@@ -1,0 +1,106 @@
+﻿
+=head1 NAME
+
+Venus - Hello World
+
+=cut
+
+=head1 ABSTRACT
+
+Getting to "Hello World"
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'log';
+
+  log 'Hello World';
+
+  # bless(..., "Venus::Log")
+
+  # Prints "Hello World" to STDOUT
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus is an object-orientation framework for Perl 5. This topic demonstrates
+basic output using Venus.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of how to output information using Venus.
+
+=cut
+
+=over 4
+
+=item log.0
+
+Use the C<log> function to output a message to STDOUT. The C<log> function
+returns a L<Venus::Log> object.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'log';
+
+  log 'Hello World';
+
+  # bless(..., "Venus::Log")
+
+  # Prints "Hello World" to STDOUT
+
+=back
+
+=over 4
+
+=item log.1
+
+Unlike C<say>, the C<log> function can output complex data structures like
+arrays, hashes, and objects.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'log';
+
+  log { name => 'World', greeting => 'Hello' };
+
+  # bless(..., "Venus::Log")
+
+  # Prints '{greeting => "Hello", name => "World"}' to STDOUT
+
+=back
+
+=over 4
+
+=item say.0
+
+Venus value objects stringify automatically, so Perl's built-in C<say> works
+naturally with them.
+
+B<example 1>
+
+  package main;
+
+  use feature 'say';
+
+  use Venus 'string';
+
+  my $message = string 'Hello World';
+
+  say $message;
+
+  # "Hello World"
+
+  $message
+
+=back

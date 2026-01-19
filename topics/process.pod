@@ -1,0 +1,125 @@
+﻿
+=head1 NAME
+
+Venus - Process
+
+=cut
+
+=head1 ABSTRACT
+
+Process in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Process;
+
+  my $process = Venus::Process->new;
+
+  $process->pid > 0 ? 'has pid' : 'no pid';
+
+  # "has pid"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Process> provides methods for process management including forking,
+communication between processes, and lifecycle management.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of process operations in Venus.
+
+=cut
+
+=over 4
+
+=item proc.0
+
+Use C<pid> to get the current process ID.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Process;
+
+  my $process = Venus::Process->new;
+
+  $process->pid > 0 ? 'valid pid' : 'invalid pid';
+
+  # "valid pid"
+
+=back
+
+=over 4
+
+=item proc.1
+
+Check if a process is registered (active).
+
+B<example 1>
+
+  package main;
+
+  use Venus::Process;
+
+  my $process = Venus::Process->new;
+
+  $process->is_registered ? 'registered' : 'not registered';
+
+  # "not registered"
+
+=back
+
+=over 4
+
+=item proc.2
+
+Use C<trap> to set a signal handler.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Process;
+
+  my $process = Venus::Process->new;
+
+  $process->trap(USR1 => sub { });
+
+  $process->untrap('USR1');
+
+  'signal setup';
+
+  # "signal setup"
+
+=back
+
+=over 4
+
+=item proc.3
+
+Use C<exit> to terminate the process with a code.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Process;
+
+  my $process = Venus::Process->new;
+
+  # In practice: $process->exit(0);
+
+  'exit available';
+
+  # "exit available"
+
+=back

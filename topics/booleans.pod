@@ -1,0 +1,158 @@
+﻿
+=head1 NAME
+
+Venus - Booleans
+
+=cut
+
+=head1 ABSTRACT
+
+Boolean Values in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus;
+
+  my $result = true && !false;
+
+  # 1
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides boolean values through L<Venus::Boolean>, L<Venus::True>, and
+L<Venus::False> classes, plus the convenient C<true> and C<false> keyword
+functions exported from L<Venus>.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of boolean operations using Venus.
+
+=cut
+
+=over 4
+
+=item boolean.0
+
+Use L<Venus::Boolean> to create a boolean from any value.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Boolean;
+
+  my $bool = Venus::Boolean->new('yes');
+
+  my $result = $bool->is_true;
+
+  # 1
+
+=back
+
+=over 4
+
+=item boolean.1
+
+Use L<Venus::True> for explicit true values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::True;
+
+  my $bool = Venus::True->new;
+
+  my $result = $bool && 'works';
+
+  # "works"
+
+=back
+
+=over 4
+
+=item boolean.2
+
+Use L<Venus::False> for explicit false values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::False;
+
+  my $bool = Venus::False->new;
+
+  my $result = $bool || 'default';
+
+  # "default"
+
+=back
+
+=over 4
+
+=item boolean.3
+
+Use C<negate> to flip a boolean value.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Boolean;
+
+  my $bool = Venus::Boolean->new(0);
+
+  my $result = $bool->negate;
+
+  # 1
+
+=back
+
+=over 4
+
+=item false.0
+
+Use C<false> from Venus as a boolean false value.
+
+B<example 1>
+
+  package main;
+
+  use Venus;
+
+  my $value = false;
+
+  my $result = $value ? 'yes' : 'no';
+
+  # "no"
+
+=back
+
+=over 4
+
+=item true.0
+
+Use C<true> from Venus as a boolean true value.
+
+B<example 1>
+
+  package main;
+
+  use Venus;
+
+  my $value = true;
+
+  my $result = $value ? 'yes' : 'no';
+
+  # "yes"
+
+=back

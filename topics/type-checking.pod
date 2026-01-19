@@ -1,0 +1,174 @@
+﻿
+=head1 NAME
+
+Venus - Type Checking
+
+=cut
+
+=head1 ABSTRACT
+
+Type Checking in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Check;
+
+  my $check = Venus::Check->new;
+
+  $check->string;
+
+  $check->eval('hello');
+
+  # 1
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides L<Venus::Check> for type validation and L<Venus::Type> for
+parsing type expressions. These tools help ensure data conforms to expected
+types.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of type checking in Venus.
+
+=cut
+
+=over 4
+
+=item check.0
+
+Use C<Venus::Check> to validate values against types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Check;
+
+  my $check = Venus::Check->new;
+
+  $check->number;
+
+  my $result = $check->eval(42);
+
+  # 1
+
+=back
+
+=over 4
+
+=item check.1
+
+Use C<maybe> to allow a type or undef.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Check;
+
+  my $check = Venus::Check->new;
+
+  $check->maybe('string');
+
+  my $result = $check->eval(undef);
+
+  # 1
+
+=back
+
+=over 4
+
+=item check.2
+
+Use C<either> to allow multiple types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Check;
+
+  my $check = Venus::Check->new;
+
+  $check->either('string', 'number');
+
+  my $result = $check->eval(42);
+
+  # 1
+
+=back
+
+=over 4
+
+=item check.3
+
+Use C<result> to validate and return the value, or throw on failure.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Check;
+
+  my $check = Venus::Check->new;
+
+  $check->arrayref;
+
+  my $result = $check->result([1, 2, 3]);
+
+  # [1, 2, 3]
+
+=back
+
+=over 4
+
+=item type.0
+
+Use C<Venus::Type> to create checks from type expressions.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Type;
+
+  my $type = Venus::Type->new;
+
+  my $check = $type->check('string | number');
+
+  my $result = $check->eval('hello');
+
+  # 1
+
+=back
+
+=over 4
+
+=item type.1
+
+Use C<within> to check array contents.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Check;
+
+  my $check = Venus::Check->new;
+
+  $check->within('arrayref', 'string');
+
+  my $result = $check->eval(['a', 'b', 'c']);
+
+  # 1
+
+=back

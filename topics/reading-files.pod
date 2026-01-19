@@ -1,0 +1,151 @@
+﻿
+=head1 NAME
+
+Venus - Reading Files
+
+=cut
+
+=head1 ABSTRACT
+
+Reading Files in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_read_test.txt');
+
+  $path->write("Hello, Venus!");
+
+  my $content = $path->read;
+
+  $path->unlink;
+
+  $content;
+
+  # "Hello, Venus!"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Path> provides methods for reading file contents. Use C<read> to get
+the entire file as a string and C<lines> to get an array of lines.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of reading files in Venus.
+
+=cut
+
+=over 4
+
+=item read.0
+
+Use C<read> to get file contents as a string.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_read_0.txt');
+
+  $path->write("Line 1\nLine 2\nLine 3");
+
+  my $content = $path->read;
+
+  $path->unlink;
+
+  $content =~ /Line 2/ ? 'found' : 'missing';
+
+  # "found"
+
+=back
+
+=over 4
+
+=item read.1
+
+Use C<lines> to get file contents as an array.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_read_1.txt');
+
+  $path->write("apple\nbanana\ncherry");
+
+  my $lines = $path->lines;
+
+  $path->unlink;
+
+  scalar @$lines;
+
+  # 3
+
+=back
+
+=over 4
+
+=item read.2
+
+Check if a file exists before reading.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_read_2.txt');
+
+  $path->write("test content");
+
+  my $result = $path->exists ? $path->read : 'missing';
+
+  $path->unlink;
+
+  $result;
+
+  # "test content"
+
+=back
+
+=over 4
+
+=item read.3
+
+Read and process lines with iteration.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_read_3.txt');
+
+  $path->write("10\n20\n30");
+
+  my $sum = 0;
+
+  $sum += $_ for @{$path->lines};
+
+  $path->unlink;
+
+  $sum;
+
+  # 60
+
+=back

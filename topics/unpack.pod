@@ -1,0 +1,123 @@
+﻿
+=head1 NAME
+
+Venus - Unpack
+
+=cut
+
+=head1 ABSTRACT
+
+Unpack in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Unpack;
+
+  my $unpack = Venus::Unpack->new(['hello', 123]);
+
+  $unpack->arg(0);
+
+  # "hello"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Unpack> provides argument unpacking with type checking. Use C<arg>
+to select arguments by index and C<all> to get all arguments.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of argument unpacking in Venus.
+
+=cut
+
+=over 4
+
+=item unpack.0
+
+Use C<arg> to select arguments by index.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Unpack;
+
+  my $unpack = Venus::Unpack->new(['a', 'b', 'c']);
+
+  $unpack->arg(1);
+
+  # "b"
+
+=back
+
+=over 4
+
+=item unpack.1
+
+Access last argument.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Unpack;
+
+  my $unpack = Venus::Unpack->new([1, 2, 3]);
+
+  $unpack->arg(2);
+
+  # 3
+
+=back
+
+=over 4
+
+=item unpack.2
+
+Access first argument.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Unpack;
+
+  my $unpack = Venus::Unpack->new(['x', 'y', 'z']);
+
+  $unpack->arg(0);
+
+  # "x"
+
+=back
+
+=over 4
+
+=item unpack.3
+
+Get arguments by position.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Unpack;
+
+  my $unpack = Venus::Unpack->new(['first', 'second']);
+
+  my $a = $unpack->arg(0);
+
+  my $b = $unpack->arg(1);
+
+  "$a-$b";
+
+  # "first-second"
+
+=back

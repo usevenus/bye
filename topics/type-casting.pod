@@ -1,0 +1,120 @@
+﻿
+=head1 NAME
+
+Venus - Type Casting
+
+=cut
+
+=head1 ABSTRACT
+
+Type Casting in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'cast';
+
+  my $object = cast('hello');
+
+  $object->isa('Venus::String');
+
+  # 1
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides the C<cast> function to convert Perl primitives into Venus
+value objects. The function automatically detects the type and wraps it in
+the appropriate Venus class.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of type casting in Venus.
+
+=cut
+
+=over 4
+
+=item cast.0
+
+Use C<cast> to convert a string to a Venus::String.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'cast';
+
+  my $object = cast('hello world');
+
+  my $result = $object->uppercase;
+
+  # "HELLO WORLD"
+
+=back
+
+=over 4
+
+=item cast.1
+
+Use C<cast> to convert a number to a Venus::Number.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'cast';
+
+  my $object = cast(42);
+
+  my $result = $object->add(8);
+
+  # 50
+
+=back
+
+=over 4
+
+=item cast.2
+
+Use C<cast> to convert an arrayref to a Venus::Array.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'cast';
+
+  my $object = cast([1, 2, 3]);
+
+  my $result = $object->count;
+
+  # 3
+
+=back
+
+=over 4
+
+=item cast.3
+
+Use C<cast> to convert a hashref to a Venus::Hash.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'cast';
+
+  my $object = cast({ name => 'Venus' });
+
+  my $result = $object->get('name');
+
+  # "Venus"
+
+=back

@@ -1,0 +1,127 @@
+﻿
+=head1 NAME
+
+Venus - Constructor Functions
+
+=cut
+
+=head1 ABSTRACT
+
+Creating Venus Objects
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'array';
+
+  my $data = array [1, 2, 3];
+
+  # bless(..., "Venus::Array")
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus exports constructor functions for creating value objects. These functions
+provide a concise way to wrap Perl data types in Venus objects.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of constructor functions for creating Venus objects.
+
+=cut
+
+=over 4
+
+=item array.0
+
+Use the C<array> function to create a L<Venus::Array> object from an arrayref.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'array';
+
+  my $data = array [1, 2, 3];
+
+  # bless(..., "Venus::Array")
+
+=back
+
+=over 4
+
+=item hash.0
+
+Use the C<hash> function to create a L<Venus::Hash> object from a hashref.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'hash';
+
+  my $data = hash { name => 'Venus', type => 'framework' };
+
+  # bless(..., "Venus::Hash")
+
+=back
+
+=over 4
+
+=item number.0
+
+Use the C<number> function to create a L<Venus::Number> object from a number.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'number';
+
+  my $data = number 42;
+
+  # bless(..., "Venus::Number")
+
+=back
+
+=over 4
+
+=item path.0
+
+Use the C<path> function to create a L<Venus::Path> object from a path string.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'path';
+
+  my $data = path '/home/user';
+
+  # bless(..., "Venus::Path")
+
+=back
+
+=over 4
+
+=item string.0
+
+Use the C<string> function to create a L<Venus::String> object from a string.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'string';
+
+  my $data = string 'hello world';
+
+  # bless(..., "Venus::String")
+
+=back

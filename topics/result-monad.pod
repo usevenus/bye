@@ -1,0 +1,130 @@
+﻿
+=head1 NAME
+
+Venus - Result Monad
+
+=cut
+
+=head1 ABSTRACT
+
+Result Monad in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Result;
+
+  my $valid = Venus::Result->new(value => 'success');
+
+  my $invalid = Venus::Result->new(issue => 'failure');
+
+  $valid->is_valid && $invalid->is_invalid;
+
+  # 1
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Result> represents the outcome of an operation that can succeed or
+fail. Use the C<value> attribute for success and C<issue> attribute for
+failure. Check status with C<is_valid> and C<is_invalid>.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of result monads in Venus.
+
+=cut
+
+=over 4
+
+=item result.0
+
+Use C<value> to create a valid result.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Result;
+
+  my $result = Venus::Result->new(value => 42);
+
+  $result->is_valid ? $result->value : 'error';
+
+  # 42
+
+=back
+
+=over 4
+
+=item result.1
+
+Use C<issue> to create an invalid result.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Result;
+
+  my $result = Venus::Result->new(issue => 'Not found');
+
+  $result->is_invalid ? $result->issue : 'ok';
+
+  # "Not found"
+
+=back
+
+=over 4
+
+=item result.2
+
+Use C<on_valid> to handle successful results.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Result;
+
+  my $result = Venus::Result->new(value => 10);
+
+  my $output;
+
+  $result->on_valid(sub { $output = $_[0]->value * 2 });
+
+  $output;
+
+  # 20
+
+=back
+
+=over 4
+
+=item result.3
+
+Use C<on_invalid> to handle failed results.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Result;
+
+  my $result = Venus::Result->new(issue => 'Failed');
+
+  my $output = 'default';
+
+  $result->on_invalid(sub { $output = "Error: " . $_[0]->issue });
+
+  $output;
+
+  # "Error: Failed"
+
+=back

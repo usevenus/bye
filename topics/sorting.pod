@@ -1,0 +1,130 @@
+﻿
+=head1 NAME
+
+Venus - Sorting
+
+=cut
+
+=head1 ABSTRACT
+
+Sorting in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([3, 1, 4, 1, 5]);
+
+  my $sorted = $array->sort;
+
+  join(',', @$sorted);
+
+  # "1,1,3,4,5"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Array> provides C<sort> and C<rsort> methods for sorting arrays.
+The C<sort> method sorts in ascending order, while C<rsort> sorts in
+descending order.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of sorting in Venus.
+
+=cut
+
+=over 4
+
+=item sort.0
+
+Use C<sort> to sort numbers in ascending order.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([5, 2, 8, 1, 9]);
+
+  my $sorted = $array->sort;
+
+  join(',', @$sorted);
+
+  # "1,2,5,8,9"
+
+=back
+
+=over 4
+
+=item sort.1
+
+Use C<rsort> to sort in descending order.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([5, 2, 8, 1, 9]);
+
+  my $sorted = $array->rsort;
+
+  join(',', @$sorted);
+
+  # "9,8,5,2,1"
+
+=back
+
+=over 4
+
+=item sort.2
+
+Use C<sort> to sort strings alphabetically.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['banana', 'apple', 'cherry']);
+
+  my $sorted = $array->sort;
+
+  join(',', @$sorted);
+
+  # "apple,banana,cherry"
+
+=back
+
+=over 4
+
+=item sort.3
+
+Use C<reverse> to reverse array order.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3, 4, 5]);
+
+  my $reversed = $array->reverse;
+
+  join(',', @$reversed);
+
+  # "5,4,3,2,1"
+
+=back

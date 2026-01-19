@@ -1,0 +1,124 @@
+﻿
+=head1 NAME
+
+Venus - Date Time
+
+=cut
+
+=head1 ABSTRACT
+
+Date Time in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  $date->format('%Y-%m-%d');
+
+  # "1970-01-01"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Date> provides date and time manipulation. Use C<format> for custom
+formatting, C<add_*> and C<sub_*> for arithmetic, and C<iso8601> for standard
+formats.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of date and time operations in Venus.
+
+=cut
+
+=over 4
+
+=item date.0
+
+Use C<format> to customize date output.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  $date->format('%H:%M:%S');
+
+  # "00:00:00"
+
+=back
+
+=over 4
+
+=item date.1
+
+Use C<add_days> to add days to a date.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  $date->add_days(1);
+
+  $date->format('%Y-%m-%d');
+
+  # "1970-01-02"
+
+=back
+
+=over 4
+
+=item date.2
+
+Use C<epoch> to get the Unix timestamp.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(86400);
+
+  $date->epoch;
+
+  # 86400
+
+=back
+
+=over 4
+
+=item date.3
+
+Use C<iso8601> for ISO 8601 formatted dates.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Date;
+
+  my $date = Venus::Date->new(0);
+
+  my $iso = $date->iso8601;
+
+  $iso =~ /1970-01-01/ ? 'valid iso' : 'invalid iso';
+
+  # "valid iso"
+
+=back

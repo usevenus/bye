@@ -1,0 +1,130 @@
+﻿
+=head1 NAME
+
+Venus - Logging
+
+=cut
+
+=head1 ABSTRACT
+
+Logging in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Log;
+
+  my $log = Venus::Log->new;
+
+  $log->level('debug');
+
+  $log->debug("Test message");
+
+  # bless(..., "Venus::Log")
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Log> provides logging with configurable levels. Methods include
+C<debug>, C<info>, C<warn>, C<error>, and C<fatal>. Use C<level> to set
+the minimum log level.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of logging in Venus.
+
+=cut
+
+=over 4
+
+=item log.0
+
+Use C<info> to log informational messages.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Log;
+
+  my $log = Venus::Log->new;
+
+  $log->level('info');
+
+  $log->info("Application started");
+
+  # bless(..., "Venus::Log")
+
+=back
+
+=over 4
+
+=item log.1
+
+Use C<warn> to log warning messages.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Log;
+
+  my $log = Venus::Log->new;
+
+  $log->level('warn');
+
+  $log->warn("Resource running low");
+
+  # bless(..., "Venus::Log")
+
+=back
+
+=over 4
+
+=item log.2
+
+Use C<error> to log error messages.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Log;
+
+  my $log = Venus::Log->new;
+
+  $log->level('error');
+
+  $log->error("Operation failed");
+
+  # bless(..., "Venus::Log")
+
+=back
+
+=over 4
+
+=item log.3
+
+Use C<level_name> to get the current log level name.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Log;
+
+  my $log = Venus::Log->new;
+
+  $log->level('debug');
+
+  $log->level_name;
+
+  # "debug"
+
+=back

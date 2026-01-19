@@ -1,0 +1,127 @@
+﻿
+=head1 NAME
+
+Venus - Space
+
+=cut
+
+=head1 ABSTRACT
+
+Space in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Space;
+
+  my $space = Venus::Space->new('Venus::String');
+
+  $space->loaded ? 'loaded' : 'not loaded';
+
+  # "not loaded"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Space> provides package introspection and manipulation including
+loading modules, checking inheritance, and accessing package metadata.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of package introspection in Venus.
+
+=cut
+
+=over 4
+
+=item space.0
+
+Use C<load> to load a module.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Space;
+
+  my $space = Venus::Space->new('Venus::String');
+
+  $space->load;
+
+  $space->loaded ? 'loaded' : 'not loaded';
+
+  # "loaded"
+
+=back
+
+=over 4
+
+=item space.1
+
+Use C<package> to get the package name.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Space;
+
+  my $space = Venus::Space->new('Venus::Array');
+
+  $space->package;
+
+  # "Venus::Array"
+
+=back
+
+=over 4
+
+=item space.2
+
+Use C<parent> to get the parent package.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Space;
+
+  my $space = Venus::Space->new('Venus::Array');
+
+  $space->load;
+
+  my $parent = $space->parent;
+
+  $parent->package;
+
+  # "Venus"
+
+=back
+
+=over 4
+
+=item space.3
+
+Use C<child> to create a child package space.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Space;
+
+  my $space = Venus::Space->new('Venus');
+
+  my $child = $space->child('Array');
+
+  $child->package;
+
+  # "Venus::Array"
+
+=back

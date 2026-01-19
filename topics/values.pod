@@ -1,0 +1,161 @@
+﻿
+=head1 NAME
+
+Venus - Values
+
+=cut
+
+=head1 ABSTRACT
+
+Value Objects in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('hello world');
+
+  print $string;
+
+  # "hello world"
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides value classes that wrap Perl primitives (strings, numbers,
+arrays, hashes) in objects. These objects stringify and numify automatically,
+and provide useful methods for manipulation.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of value objects in Venus.
+
+=cut
+
+=over 4
+
+=item array.0
+
+L<Venus::Array> wraps arrayrefs. Use C<get> to retrieve the underlying data.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3]);
+
+  my $data = $array->get;
+
+  # [1, 2, 3]
+
+=back
+
+=over 4
+
+=item boolean.0
+
+L<Venus::Boolean>, L<Venus::True>, and L<Venus::False> represent boolean values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::True;
+  use Venus::False;
+
+  my $true = Venus::True->new;
+  my $false = Venus::False->new;
+
+  my $result = $true && !$false;
+
+  # 1
+
+=back
+
+=over 4
+
+=item boolean.1
+
+The C<Venus> package automatically exports C<true> and C<false> keyword
+functions which provide fully backward-compatible boolean values.
+
+B<example 1>
+
+  package main;
+
+  use Venus;
+
+  my $result = true && !false;
+
+  # 1
+
+=back
+
+=over 4
+
+=item hash.0
+
+L<Venus::Hash> wraps hashrefs. Use C<get> to retrieve the underlying data.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ name => 'Venus' });
+
+  my $data = $hash->get;
+
+  # { name => 'Venus' }
+
+=back
+
+=over 4
+
+=item number.0
+
+L<Venus::Number> wraps numbers. It numifies automatically in numeric contexts.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Number;
+
+  my $number = Venus::Number->new(42);
+
+  my $result = $number + 8;
+
+  # 50
+
+=back
+
+=over 4
+
+=item string.0
+
+L<Venus::String> wraps strings. It stringifies automatically when printed.
+
+B<example 1>
+
+  package main;
+
+  use Venus::String;
+
+  my $string = Venus::String->new('hello world');
+
+  print $string;
+
+  # prints "hello world"
+
+=back

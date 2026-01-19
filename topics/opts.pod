@@ -1,0 +1,147 @@
+﻿
+=head1 NAME
+
+Venus - Opts
+
+=cut
+
+=head1 ABSTRACT
+
+Opts in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Opts;
+
+  local @ARGV = ('--name=Alice');
+
+  my $opts = Venus::Opts->new(
+    specs => ['name|n=s'],
+    named => { name => 'name' }
+  );
+
+  $opts->get('name');
+
+  # "Alice"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Opts> provides command-line option parsing using Getopt::Long specs.
+Define options with C<specs>, map names with C<named>, and retrieve values
+with C<get>.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of command-line option parsing in Venus.
+
+=cut
+
+=over 4
+
+=item opts.0
+
+Use C<specs> to define option types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Opts;
+
+  local @ARGV = ('--verbose');
+
+  my $opts = Venus::Opts->new(
+    specs => ['verbose|v'],
+    named => { verbose => 'verbose' }
+  );
+
+  $opts->get('verbose') ? 'verbose on' : 'verbose off';
+
+  # "verbose on"
+
+=back
+
+=over 4
+
+=item opts.1
+
+Use C<exists> to check if an option was provided.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Opts;
+
+  local @ARGV = ('--debug');
+
+  my $opts = Venus::Opts->new(
+    specs => ['debug|d', 'quiet|q'],
+    named => { debug => 'debug', quiet => 'quiet' }
+  );
+
+  $opts->exists('quiet') ? 'has quiet' : 'no quiet';
+
+  # "no quiet"
+
+=back
+
+=over 4
+
+=item opts.2
+
+Parse numeric option values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Opts;
+
+  local @ARGV = ('--port=8080');
+
+  my $opts = Venus::Opts->new(
+    specs => ['port|p=i'],
+    named => { port => 'port' }
+  );
+
+  $opts->get('port');
+
+  # 8080
+
+=back
+
+=over 4
+
+=item opts.3
+
+Use C<unused> to get non-option arguments.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Opts;
+
+  local @ARGV = ('--name=test', 'file.txt');
+
+  my $opts = Venus::Opts->new(
+    specs => ['name|n=s'],
+    named => { name => 'name' }
+  );
+
+  my $unused = $opts->unused;
+
+  $unused->[0];
+
+  # "file.txt"
+
+=back

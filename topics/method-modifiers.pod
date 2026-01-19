@@ -1,0 +1,219 @@
+﻿
+=head1 NAME
+
+Venus - Method Modifiers
+
+=cut
+
+=head1 ABSTRACT
+
+Method Modifiers in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package Counter;
+
+  use Venus 'before', 'after';
+
+  use Venus::Class;
+
+  attr 'count';
+
+  sub increment {
+    my ($self) = @_;
+    return $self->count(($self->count // 0) + 1);
+  }
+
+  before 'increment', sub {
+    my ($self) = @_;
+    # runs before increment
+  };
+
+  after 'increment', sub {
+    my ($self) = @_;
+    # runs after increment
+  };
+
+  package main;
+
+  my $counter = Counter->new;
+
+  $counter->increment;
+
+  $counter->count;
+
+  # 1
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides method modifiers C<before>, C<after>, and C<around> to wrap
+existing methods with additional behavior. These are useful for logging,
+validation, or modifying arguments and return values.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of method modifiers in Venus.
+
+=cut
+
+=over 4
+
+=item after.0
+
+Use C<after> to run code after a method executes.
+
+B<example 1>
+
+  package Notifier;
+
+  use Venus 'after';
+
+  use Venus::Class;
+
+  attr 'notifications';
+
+  sub BUILD {
+    my ($self) = @_;
+    $self->notifications([]);
+  }
+
+  sub save {
+    my ($self, $data) = @_;
+    return "saved: $data";
+  }
+
+  after 'save', sub {
+    my ($self, $data) = @_;
+    push @{$self->notifications}, "notified about: $data";
+  };
+
+  package main;
+
+  my $notifier = Notifier->new;
+
+  my $saved = $notifier->save('record');
+
+  my $result = $notifier->notifications->[0];
+
+  # "notified about: record"
+
+=back
+
+=over 4
+
+=item around.0
+
+Use C<around> to wrap a method and control its execution.
+
+B<example 1>
+
+  package Multiplier;
+
+  use Venus 'around';
+
+  use Venus::Class;
+
+  sub calculate {
+    my ($self, $n) = @_;
+    return $n * 2;
+  }
+
+  around 'calculate', sub {
+    my ($orig, $self, $n) = @_;
+    my $result = $self->$orig($n);  # call original
+    return $result + 1;  # modify result
+  };
+
+  package main;
+
+  my $mult = Multiplier->new;
+
+  my $result = $mult->calculate(5);
+
+  # 11 (5 * 2 + 1)
+
+=back
+
+=over 4
+
+=item around.1
+
+Use C<around> to modify arguments before passing to the original method.
+
+B<example 1>
+
+  package Greeter;
+
+  use Venus 'around';
+
+  use Venus::Class;
+
+  sub greet {
+    my ($self, $name) = @_;
+    return "Hello, $name!";
+  }
+
+  around 'greet', sub {
+    my ($orig, $self, $name) = @_;
+    return $self->$orig(uc $name);  # uppercase the name
+  };
+
+  package main;
+
+  my $greeter = Greeter->new;
+
+  my $result = $greeter->greet('alice');
+
+  # "Hello, ALICE!"
+
+=back
+
+=over 4
+
+=item before.0
+
+Use C<before> to run code before a method executes.
+
+B<example 1>
+
+  package Logger;
+
+  use Venus 'before';
+
+  use Venus::Class;
+
+  attr 'log';
+
+  sub BUILD {
+    my ($self) = @_;
+    $self->log([]);
+  }
+
+  sub process {
+    my ($self, $item) = @_;
+    push @{$self->log}, "processed: $item";
+    return $item;
+  }
+
+  before 'process', sub {
+    my ($self, $item) = @_;
+    push @{$self->log}, "starting: $item";
+  };
+
+  package main;
+
+  my $logger = Logger->new;
+
+  $logger->process('task');
+
+  my $result = join ', ', @{$logger->log};
+
+  # "starting: task, processed: task"
+
+=back

@@ -1,0 +1,129 @@
+﻿
+=head1 NAME
+
+Venus - Joining
+
+=cut
+
+=head1 ABSTRACT
+
+Joining in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['a', 'b', 'c']);
+
+  my $joined = $array->join(', ');
+
+  $joined;
+
+  # "a, b, c"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Array>, L<Venus::Map>, and L<Venus::Set> all provide a C<join> method
+for combining elements into a string with a specified separator.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of joining in Venus.
+
+=cut
+
+=over 4
+
+=item join.0
+
+Use C<join> on C<Venus::Array> to combine elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3, 4, 5]);
+
+  my $result = $array->join('-');
+
+  $result;
+
+  # "1-2-3-4-5"
+
+=back
+
+=over 4
+
+=item join.1
+
+Use C<join> on C<Venus::Map> to combine hash values.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Map;
+
+  my $map = Venus::Map->new({ x => 10, y => 20, z => 30 });
+
+  my $result = $map->join(' + ');
+
+  $result;
+
+  # "10 + 20 + 30"
+
+=back
+
+=over 4
+
+=item join.2
+
+Use C<join> on C<Venus::Set> which contains unique values only.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Set;
+
+  my $set = Venus::Set->new([1, 2, 2, 3, 3, 3]);
+
+  my $result = $set->join(', ');
+
+  $result;
+
+  # "1, 2, 3"
+
+=back
+
+=over 4
+
+=item join.3
+
+Use C<join> with an empty separator to concatenate.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['h', 'e', 'l', 'l', 'o']);
+
+  my $result = $array->join('');
+
+  $result;
+
+  # "hello"
+
+=back

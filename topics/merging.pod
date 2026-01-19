@@ -1,0 +1,229 @@
+﻿
+=head1 NAME
+
+Venus - Merging
+
+=cut
+
+=head1 ABSTRACT
+
+Merging in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'merge_swap';
+
+  my $result = merge_swap(
+    { a => 1, b => 2 },
+    { b => 20, c => 3 },
+    { c => 30, d => 4 }
+  );
+
+  $result->{b} + $result->{c};
+
+  # 50
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides multiple merge strategies as functions. All merge functions
+accept multiple arguments and process them left to right. Strategies include
+C<merge_keep> (preserve original), C<merge_swap> (overwrite), C<merge_join>
+(combine arrays), and C<merge_take> (deep merge). Each has a C<_mutate>
+variant that modifies in place.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of merging in Venus.
+
+=cut
+
+=over 4
+
+=item merge.0
+
+Use C<merge_swap> to overwrite values (later values win).
+
+B<example 1>
+
+  package main;
+
+  use Venus 'merge_swap';
+
+  my $result = merge_swap(
+    { name => 'Alice', age => 25 },
+    { age => 30, city => 'NYC' }
+  );
+
+  $result->{age};
+
+  # 30
+
+=back
+
+=over 4
+
+=item merge.1
+
+Use C<merge_keep> to preserve original values on conflicts.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'merge_keep';
+
+  my $result = merge_keep(
+    { name => 'Alice', age => 25 },
+    { age => 30, city => 'NYC' }
+  );
+
+  $result->{age};
+
+  # 25
+
+=back
+
+=over 4
+
+=item merge.2
+
+Use C<merge_join> to combine array values.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'merge_join';
+
+  my $result = merge_join(
+    { tags => ['a', 'b'] },
+    { tags => ['c', 'd'] }
+  );
+
+  join(',', @{$result->{tags}});
+
+  # "a,b,c,d"
+
+=back
+
+=over 4
+
+=item merge.3
+
+Use C<merge_take> for deep recursive merging.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'merge_take';
+
+  my $result = merge_take(
+    { user => { name => 'Bob' } },
+    { user => { age => 30 } }
+  );
+
+  $result->{user}{name} . ':' . $result->{user}{age};
+
+  # "Bob:30"
+
+=back
+
+=over 4
+
+=item merge.4
+
+Merge multiple values in one call.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'merge_swap';
+
+  my $result = merge_swap(
+    { a => 1 },
+    { b => 2 },
+    { c => 3 },
+    { d => 4 }
+  );
+
+  join(',', sort keys %$result);
+
+  # "a,b,c,d"
+
+=back
+
+=over 4
+
+=item merge.5
+
+Use C<Venus::Hash> C<merge> method (uses C<merge_swap> internally).
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ a => 1, b => 2 });
+
+  my $result = $hash->merge({ b => 20 }, { c => 3 });
+
+  $result->{a} + $result->{b} + $result->{c};
+
+  # 24
+
+=back
+
+=over 4
+
+=item merge.6
+
+Use C<Venus::Array> C<merge> method to replace array contents.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3]);
+
+  my $result = $array->merge([4, 5], [6, 7, 8]);
+
+  join(',', @$result);
+
+  # "6,7,8"
+
+=back
+
+=over 4
+
+=item merge.7
+
+Chain C<merge> calls on C<Venus::Map>.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Map;
+
+  my $map = Venus::Map->new({ x => 1 });
+
+  $map->merge({ y => 2 })->merge({ z => 3 });
+
+  $map->count;
+
+  # 3
+
+=back

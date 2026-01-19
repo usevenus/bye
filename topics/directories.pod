@@ -1,0 +1,163 @@
+﻿
+=head1 NAME
+
+Venus - Directories
+
+=cut
+
+=head1 ABSTRACT
+
+Directories in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_dir_test');
+
+  $path->mkdir;
+
+  my $is_dir = $path->is_directory ? 'yes' : 'no';
+
+  $path->rmdir;
+
+  $is_dir;
+
+  # "yes"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Path> provides methods for directory operations. Use C<mkdir> to
+create directories, C<rmdir> to remove them, and C<children> to list contents.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of directory operations in Venus.
+
+=cut
+
+=over 4
+
+=item dir.0
+
+Use C<mkdir> and C<rmdir> for directory management.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_dir_0');
+
+  $path->mkdir;
+
+  my $exists = $path->exists ? 'exists' : 'missing';
+
+  $path->rmdir;
+
+  $exists;
+
+  # "exists"
+
+=back
+
+=over 4
+
+=item dir.1
+
+Use C<is_directory> to check if path is a directory.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp');
+
+  $path->is_directory ? 'directory' : 'not directory';
+
+  # "directory"
+
+=back
+
+=over 4
+
+=item dir.2
+
+Use C<children> to list directory contents.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $dir = Venus::Path->new('/tmp/venus_dir_2');
+
+  $dir->mkdir;
+
+  $dir->child('a.txt')->mkfile;
+
+  $dir->child('b.txt')->mkfile;
+
+  my $children = $dir->children;
+
+  my $count = scalar @$children;
+
+  $dir->child('a.txt')->unlink;
+
+  $dir->child('b.txt')->unlink;
+
+  $dir->rmdir;
+
+  $count;
+
+  # 2
+
+=back
+
+=over 4
+
+=item dir.3
+
+Use C<glob> to find files matching patterns.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $dir = Venus::Path->new('/tmp/venus_dir_3');
+
+  $dir->mkdir;
+
+  $dir->child('test.txt')->mkfile;
+
+  $dir->child('test.log')->mkfile;
+
+  my $txt_files = $dir->glob('*.txt');
+
+  my $count = scalar @$txt_files;
+
+  $dir->child('test.txt')->unlink;
+
+  $dir->child('test.log')->unlink;
+
+  $dir->rmdir;
+
+  $count;
+
+  # 1
+
+=back

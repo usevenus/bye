@@ -1,0 +1,132 @@
+﻿
+=head1 NAME
+
+Venus - Args
+
+=cut
+
+=head1 ABSTRACT
+
+Args in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Args;
+
+  local @ARGV = ('--name', 'Alice', 'file.txt');
+
+  my $args = Venus::Args->new(named => { name => 1 });
+
+  $args->get($args->name('name'));
+
+  # "Alice"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Args> provides access to command-line arguments via C<@ARGV>. Use
+C<named> to map argument names to indices, C<get> to retrieve values by index,
+and C<exists> to check for named arguments.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of argument handling in Venus.
+
+=cut
+
+=over 4
+
+=item args.0
+
+Use C<get> to access arguments by index.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Args;
+
+  local @ARGV = ('input.txt', 'output.txt');
+
+  my $args = Venus::Args->new;
+
+  $args->get(0);
+
+  # "input.txt"
+
+=back
+
+=over 4
+
+=item args.1
+
+Use C<named> to map names to argument indices.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Args;
+
+  local @ARGV = ('--host', 'localhost', '--port', '8080');
+
+  my $args = Venus::Args->new(named => { host => 1, port => 3 });
+
+  $args->get($args->name('port'));
+
+  # "8080"
+
+=back
+
+=over 4
+
+=item args.2
+
+Use C<exists> to check if a named argument is defined.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Args;
+
+  local @ARGV = ('--verbose', '--debug');
+
+  my $args = Venus::Args->new(named => { verbose => 0, debug => 1 });
+
+  $args->exists('verbose') ? 'has verbose' : 'no verbose';
+
+  # "has verbose"
+
+=back
+
+=over 4
+
+=item args.3
+
+Use C<indexed> to get a hash of index-value pairs.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Args;
+
+  local @ARGV = ('a', 'b', 'c');
+
+  my $args = Venus::Args->new;
+
+  my $indexed = $args->indexed;
+
+  $indexed->{1};
+
+  # "b"
+
+=back

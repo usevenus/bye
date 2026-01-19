@@ -1,0 +1,148 @@
+﻿
+=head1 NAME
+
+Venus - Search
+
+=cut
+
+=head1 ABSTRACT
+
+Search in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Search;
+
+  my $search = Venus::Search->new(
+    string => 'hello world',
+    regexp => 'world'
+  );
+
+  $search->evaluate;
+
+  $search->matched ? 'found' : 'not found';
+
+  # "found"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Search> provides regex-based string searching. Set C<string> and
+C<regexp> attributes, then call C<evaluate> to find matches.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of string searching in Venus.
+
+=cut
+
+=over 4
+
+=item search.0
+
+Check if a pattern matches.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Search;
+
+  my $search = Venus::Search->new(
+    string => 'hello world',
+    regexp => 'hello'
+  );
+
+  $search->evaluate;
+
+  $search->matched ? 'found' : 'not found';
+
+  # "found"
+
+=back
+
+=over 4
+
+=item search.1
+
+Get captured groups.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Search;
+
+  my $search = Venus::Search->new(
+    string => 'hello world',
+    regexp => '(\\w+) (\\w+)'
+  );
+
+  $search->evaluate;
+
+  my $captures = $search->captures;
+
+  $captures->[0];
+
+  # "hello"
+
+=back
+
+=over 4
+
+=item search.2
+
+Use C<count> to get the number of matches.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Search;
+
+  my $search = Venus::Search->new(
+    string => 'aaa bbb aaa',
+    regexp => 'aaa',
+    flags => 'g'
+  );
+
+  $search->evaluate;
+
+  $search->count;
+
+  # 1
+
+=back
+
+=over 4
+
+=item search.3
+
+Case-insensitive matching.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Search;
+
+  my $search = Venus::Search->new(
+    string => 'HELLO world',
+    regexp => 'hello',
+    flags => 'i'
+  );
+
+  $search->evaluate;
+
+  $search->matched ? 'found' : 'not found';
+
+  # "found"
+
+=back

@@ -1,0 +1,158 @@
+﻿
+=head1 NAME
+
+Venus - Collection Iteration
+
+=cut
+
+=head1 ABSTRACT
+
+Collection Iteration in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3, 4, 5]);
+
+  my $total = 0;
+
+  $array->each(sub { $total += $_ });
+
+  $total;
+
+  # 15
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides iteration methods on L<Venus::Array> and L<Venus::Hash> for
+traversing collections. Methods like C<each>, C<map>, C<grep>, and C<first>
+enable functional-style data processing.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of collection iteration in Venus.
+
+=cut
+
+=over 4
+
+=item each.0
+
+Use C<each> to iterate over array elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new(['a', 'b', 'c']);
+
+  my @items;
+
+  $array->each(sub { push @items, $_ });
+
+  join(',', @items);
+
+  # "a,b,c"
+
+=back
+
+=over 4
+
+=item each.1
+
+Use C<each> to iterate over hash key-value pairs.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Hash;
+
+  my $hash = Venus::Hash->new({ a => 1, b => 2 });
+
+  my $sum = 0;
+
+  $hash->each(sub { $sum += $_ });
+
+  $sum;
+
+  # 3
+
+=back
+
+=over 4
+
+=item first.0
+
+Use C<first> to get the first element of an array.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([10, 20, 30, 40]);
+
+  my $first = $array->first;
+
+  $first;
+
+  # 10
+
+=back
+
+=over 4
+
+=item grep.0
+
+Use C<grep> to filter array elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3, 4, 5, 6]);
+
+  my $evens = $array->grep(sub { $_ % 2 == 0 });
+
+  join(',', @$evens);
+
+  # "2,4,6"
+
+=back
+
+=over 4
+
+=item map.0
+
+Use C<map> to transform array elements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Array;
+
+  my $array = Venus::Array->new([1, 2, 3]);
+
+  my $mapped = $array->map(sub { $_ * 10 });
+
+  join(',', @$mapped);
+
+  # "10,20,30"
+
+=back

@@ -1,0 +1,162 @@
+﻿
+=head1 NAME
+
+Venus - Temp Files
+
+=cut
+
+=head1 ABSTRACT
+
+Temp Files in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Path;
+
+  my $tmp = Venus::Path->new('/tmp');
+
+  my $file = $tmp->mktemp_file;
+
+  my $is_file = $file->is_file ? 'yes' : 'no';
+
+  $file->unlink;
+
+  $is_file;
+
+  # "yes"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Path> provides methods for creating temporary files and directories.
+Use C<mktemp_file> to create a temporary file and C<mktemp_dir> to create a
+temporary directory.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of temporary file operations in Venus.
+
+=cut
+
+=over 4
+
+=item temp.0
+
+Use C<mktemp_file> to create a temporary file.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $tmp = Venus::Path->new('/tmp');
+
+  my $file = $tmp->mktemp_file;
+
+  $file->write("temp content");
+
+  my $content = $file->read;
+
+  $file->unlink;
+
+  $content =~ /temp/ ? 'has content' : 'no content';
+
+  # "has content"
+
+=back
+
+=over 4
+
+=item temp.1
+
+Use C<mktemp_dir> to create a temporary directory.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $tmp = Venus::Path->new('/tmp');
+
+  my $dir = $tmp->mktemp_dir;
+
+  my $is_dir = $dir->is_directory ? 'yes' : 'no';
+
+  $dir->rmdir;
+
+  $is_dir;
+
+  # "yes"
+
+=back
+
+=over 4
+
+=item temp.2
+
+Create files inside a temporary directory.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $tmp = Venus::Path->new('/tmp');
+
+  my $dir = $tmp->mktemp_dir;
+
+  my $file = $dir->child('data.txt');
+
+  $file->write("data");
+
+  my $exists = $file->exists ? 'exists' : 'missing';
+
+  $file->unlink;
+
+  $dir->rmdir;
+
+  $exists;
+
+  # "exists"
+
+=back
+
+=over 4
+
+=item temp.3
+
+Temporary file names are unique.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $tmp = Venus::Path->new('/tmp');
+
+  my $file1 = $tmp->mktemp_file;
+
+  my $file2 = $tmp->mktemp_file;
+
+  my $different = "$file1" ne "$file2" ? 'unique' : 'same';
+
+  $file1->unlink;
+
+  $file2->unlink;
+
+  $different;
+
+  # "unique"
+
+=back

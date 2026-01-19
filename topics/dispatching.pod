@@ -1,0 +1,109 @@
+﻿
+=head1 NAME
+
+Venus - Dispatching
+
+=cut
+
+=head1 ABSTRACT
+
+Construct and Call in One Step
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'string';
+
+  my $result = string 'hello', 'uppercase';
+
+  # "HELLO"
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus constructor functions accept an optional method name and arguments,
+allowing you to create an object and call a method in a single expression.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of dispatching methods via constructor functions.
+
+=cut
+
+=over 4
+
+=item array.0
+
+Use the C<array> function with a method name to construct and query an array.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'array';
+
+  my $result = array [1, 2, 3], 'count';
+
+  # 3
+
+=back
+
+=over 4
+
+=item path.0
+
+Use the C<path> function with a method name to check path properties.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'path';
+
+  my $result = path '.', 'exists';
+
+  # 1
+
+=back
+
+=over 4
+
+=item space.0
+
+Use the C<space> function with a method name to load a package dynamically.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'space';
+
+  my $result = space 'Venus::String', 'load';
+
+  # "Venus::String"
+
+=back
+
+=over 4
+
+=item string.0
+
+Use the C<string> function with a method name to transform a string.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'string';
+
+  my $result = string 'hello', 'uppercase';
+
+  # "HELLO"
+
+=back

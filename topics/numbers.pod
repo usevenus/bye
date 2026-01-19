@@ -1,0 +1,119 @@
+﻿
+=head1 NAME
+
+Venus - Numbers
+
+=cut
+
+=head1 ABSTRACT
+
+Numeric Operations in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Number;
+
+  my $number = Venus::Number->new(10);
+
+  $number->add(5);
+
+  # 15
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Number> and L<Venus::Float> provide methods for numeric operations.
+Numbers auto-numify, so they work seamlessly with Perl's built-in operators.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of numeric operations using Venus.
+
+=cut
+
+=over 4
+
+=item float.0
+
+Use L<Venus::Float> for decimal number operations.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Float;
+
+  my $float = Venus::Float->new(3.14159);
+
+  my $result = $float->multi(2);
+
+  # 6.28318
+
+=back
+
+=over 4
+
+=item number.0
+
+Use C<add>, C<sub>, and C<multi> for basic arithmetic.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Number;
+
+  my $number = Venus::Number->new(10);
+
+  my $result = $number->multi(3);
+
+  # 30
+
+=back
+
+=over 4
+
+=item number.1
+
+Use C<gt>, C<lt>, and C<eq> for comparisons.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Number;
+
+  my $number = Venus::Number->new(10);
+
+  my $result = $number->gt(5);
+
+  # 1
+
+=back
+
+=over 4
+
+=item number.2
+
+Use C<abs>, C<sqrt>, and C<pow> for math operations.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Number;
+
+  my $number = Venus::Number->new(16);
+
+  my $result = $number->sqrt;
+
+  # 4
+
+=back

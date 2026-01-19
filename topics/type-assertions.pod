@@ -1,0 +1,133 @@
+﻿
+=head1 NAME
+
+Venus - Type Assertions
+
+=cut
+
+=head1 ABSTRACT
+
+Type Assertions in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('Example');
+
+  $assert->accept('string');
+
+  $assert->valid('hello');
+
+  # 1
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Assert> provides type assertions with detailed error messages. Unlike
+L<Venus::Check>, assertions include contextual information about what was
+expected and what was received when validation fails.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of type assertions in Venus.
+
+=cut
+
+=over 4
+
+=item assert.0
+
+Use C<accept> to specify accepted types, then C<valid> to check.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('Age');
+
+  $assert->accept('number');
+
+  my $result = $assert->valid(25);
+
+  # 1
+
+=back
+
+=over 4
+
+=item assert.1
+
+Use C<validate> to assert and return the value, throwing on failure.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('Name');
+
+  $assert->accept('string');
+
+  my $result = $assert->validate('Alice');
+
+  # "Alice"
+
+=back
+
+=over 4
+
+=item assert.2
+
+Use C<expression> to accept complex type expressions.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('OptionalId');
+
+  $assert->expression('number | undef');
+
+  my $result = $assert->valid(undef);
+
+  # 1
+
+=back
+
+=over 4
+
+=item assert.3
+
+Use C<expression> with the pipe operator to accept multiple types.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Assert;
+
+  my $assert = Venus::Assert->new('StringOrNumber');
+
+  $assert->expression('string | number');
+
+  my $valid_str = $assert->valid('hello');
+  my $valid_num = $assert->valid(42);
+
+  my $result = $valid_str && $valid_num;
+
+  # 1
+
+=back

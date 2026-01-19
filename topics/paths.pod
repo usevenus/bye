@@ -1,0 +1,144 @@
+﻿
+=head1 NAME
+
+Venus - Paths
+
+=cut
+
+=head1 ABSTRACT
+
+Paths in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/home/user/file.txt');
+
+  $path->basename;
+
+  # "file.txt"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Path> provides an object-oriented interface for file and directory
+paths. It offers methods for path manipulation, traversal, and common
+filesystem operations.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of path operations in Venus.
+
+=cut
+
+=over 4
+
+=item path.0
+
+Use C<basename> to get the filename.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/var/log/app.log');
+
+  $path->basename;
+
+  # "app.log"
+
+=back
+
+=over 4
+
+=item path.1
+
+Use C<parent> to get the parent directory.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/home/user/docs/report.pdf');
+
+  $path->parent->value;
+
+  # "/home/user/docs"
+
+=back
+
+=over 4
+
+=item path.2
+
+Use C<child> to create a subpath.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/home/user');
+
+  my $child = $path->child('projects/app');
+
+  "$child";
+
+  # "/home/user/projects/app"
+
+=back
+
+=over 4
+
+=item path.3
+
+Use C<absolute> to get the absolute path.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/../tmp/file');
+
+  my $abs = $path->absolute;
+
+  $abs =~ /tmp/ ? 'valid' : 'invalid';
+
+  # "valid"
+
+=back
+
+=over 4
+
+=item path.4
+
+Use C<exists> to check if a path exists.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp');
+
+  $path->exists ? 'exists' : 'missing';
+
+  # "exists"
+
+=back

@@ -1,0 +1,145 @@
+﻿
+=head1 NAME
+
+Venus - Replace
+
+=cut
+
+=head1 ABSTRACT
+
+Replace in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Replace;
+
+  my $replace = Venus::Replace->new(
+    string => 'hello world',
+    regexp => 'world',
+    substr => 'Venus'
+  );
+
+  $replace->do('evaluate')->get;
+
+  # "hello Venus"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Replace> provides regex-based string replacement. Set C<string>,
+C<regexp>, and C<substr> attributes, then call C<evaluate> to perform the
+replacement.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of string replacement in Venus.
+
+=cut
+
+=over 4
+
+=item rep.0
+
+Basic string replacement.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Replace;
+
+  my $replace = Venus::Replace->new(
+    string => 'foo bar foo',
+    regexp => 'foo',
+    substr => 'baz'
+  );
+
+  $replace->do('evaluate')->get;
+
+  # "baz bar foo"
+
+=back
+
+=over 4
+
+=item rep.1
+
+Global replacement with C<flags>.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Replace;
+
+  my $replace = Venus::Replace->new(
+    string => 'foo bar foo',
+    regexp => 'foo',
+    substr => 'baz',
+    flags => 'g'
+  );
+
+  $replace->do('evaluate')->get;
+
+  # "baz bar baz"
+
+=back
+
+=over 4
+
+=item rep.2
+
+Case-insensitive replacement.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Replace;
+
+  my $replace = Venus::Replace->new(
+    string => 'Hello HELLO hello',
+    regexp => 'hello',
+    substr => 'hi',
+    flags => 'gi'
+  );
+
+  $replace->do('evaluate')->get;
+
+  # "hi hi hi"
+
+=back
+
+=over 4
+
+=item rep.3
+
+Use C<count> to get the number of replacements.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Replace;
+
+  my $replace = Venus::Replace->new(
+    string => 'aaa',
+    regexp => 'a',
+    substr => 'b',
+    flags => 'g'
+  );
+
+  $replace->evaluate;
+
+  $replace->count;
+
+  # 3
+
+=back

@@ -1,0 +1,129 @@
+﻿
+=head1 NAME
+
+Venus - Meta
+
+=cut
+
+=head1 ABSTRACT
+
+Meta in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Meta;
+
+  my $meta = Venus::Meta->new(name => 'Venus::String');
+
+  my $attrs = $meta->attrs;
+
+  ref $attrs;
+
+  # "ARRAY"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Meta> provides package introspection for examining attributes, bases,
+roles, and methods of a package.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of package introspection in Venus.
+
+=cut
+
+=over 4
+
+=item meta.0
+
+Use C<attrs> to list package attributes.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Meta;
+
+  my $meta = Venus::Meta->new(name => 'Venus::Array');
+
+  my $attrs = $meta->attrs;
+
+  ref $attrs;
+
+  # "ARRAY"
+
+=back
+
+=over 4
+
+=item meta.1
+
+Use C<bases> to list base classes.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Meta;
+
+  my $meta = Venus::Meta->new(name => 'Venus::Path');
+
+  my $bases = $meta->bases;
+
+  ref $bases;
+
+  # "ARRAY"
+
+=back
+
+=over 4
+
+=item meta.2
+
+Use C<roles> to list composed roles.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Meta;
+
+  my $meta = Venus::Meta->new(name => 'Venus::String');
+
+  my $roles = $meta->roles;
+
+  ref $roles;
+
+  # "ARRAY"
+
+=back
+
+=over 4
+
+=item meta.3
+
+Use C<subs> to list package methods.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Meta;
+
+  my $meta = Venus::Meta->new(name => 'Venus::Array');
+
+  my $subs = $meta->subs;
+
+  ref $subs;
+
+  # "ARRAY"
+
+=back

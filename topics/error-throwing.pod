@@ -1,0 +1,152 @@
+﻿
+=head1 NAME
+
+Venus - Error Throwing
+
+=cut
+
+=head1 ABSTRACT
+
+Error Throwing in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Throw;
+
+  my $throw = Venus::Throw->new(package => 'Example');
+
+  $throw->message('Something went wrong');
+
+  # bless(..., "Venus::Throw")
+
+  # $throw->error; # would die with Venus::Error
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Throw> provides a mechanism for throwing structured exceptions.
+L<Venus::Role::Throwable> adds throwing capabilities to classes via the
+C<throw> method.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of error throwing in Venus.
+
+=cut
+
+=over 4
+
+=item throw.0
+
+Use C<Venus::Throw> to create and throw errors.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Throw;
+
+  my $throw = Venus::Throw->new;
+
+  $throw->message('File not found');
+
+  my $result = $throw->message;
+
+  # "File not found"
+
+=back
+
+=over 4
+
+=item throw.1
+
+Use C<name> to categorize errors.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Throw;
+
+  my $throw = Venus::Throw->new;
+
+  $throw->name('on.validation.error');
+
+  $throw->message('Invalid data');
+
+  my $result = $throw->name;
+
+  # "on.validation.error"
+
+=back
+
+=over 4
+
+=item throwable.0
+
+Use C<Venus::Role::Throwable> to add C<throw> to classes.
+
+B<example 1>
+
+  package Account;
+
+  use Venus::Class;
+
+  with 'Venus::Role::Throwable';
+
+  sub withdraw {
+    my ($self, $amount) = @_;
+    $self->throw->message('Insufficient funds')->error if $amount > 100;
+    return $amount;
+  }
+
+  package main;
+
+  use Venus::Try;
+
+  my $account = Account->new;
+
+  my $try = Venus::Try->new;
+
+  $try->call(sub { $account->withdraw(200) });
+
+  $try->default(sub { 'caught' });
+
+  my $result = $try->result;
+
+  # "caught"
+
+=back
+
+=over 4
+
+=item throwable.1
+
+Use C<stash> to attach context to thrown errors.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Throw;
+
+  my $throw = Venus::Throw->new;
+
+  $throw->message('Request failed');
+
+  $throw->stash(code => 500);
+
+  $throw->stash(endpoint => '/api/users');
+
+  my $result = $throw->stash('code');
+
+  # 500
+
+=back

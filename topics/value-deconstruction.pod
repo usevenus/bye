@@ -1,0 +1,119 @@
+﻿
+=head1 NAME
+
+Venus - Value Deconstruction
+
+=cut
+
+=head1 ABSTRACT
+
+Extracting Nested Values
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus 'gets';
+
+  my $data = { user => { name => 'Alice' } };
+
+  my ($name) = gets $data, 'user.name';
+
+  # "Alice"
+
+=cut
+
+=head1 DESCRIPTION
+
+Venus provides the C<gets> function for extracting nested values from data
+structures using dot-notation paths.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of value deconstruction using Venus.
+
+=cut
+
+=over 4
+
+=item gets.0
+
+Use C<gets> with dot-notation to extract a nested hash value.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'gets';
+
+  my $data = { user => { name => 'Alice', age => 30 } };
+
+  my ($name) = gets $data, 'user.name';
+
+  # "Alice"
+
+=back
+
+=over 4
+
+=item gets.1
+
+Use numeric indices in dot-notation to extract from arrays.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'gets';
+
+  my $data = { users => ['Alice', 'Bob', 'Eve'] };
+
+  my ($first) = gets $data, 'users.0';
+
+  # "Alice"
+
+=back
+
+=over 4
+
+=item gets.2
+
+Use C<gets> with multiple paths to extract multiple values at once.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'gets';
+
+  my $data = { name => 'Alice', age => 30, city => 'NYC' };
+
+  my ($name, $city) = gets $data, 'name', 'city';
+
+  # ("Alice", "NYC")
+
+=back
+
+=over 4
+
+=item gets.3
+
+Combine C<gets> with C<list> to reorder and flatten extracted values.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'gets', 'list';
+
+  my $tuple = ['device', ['0.0.0.0', '127.0.0.1'], 'root'];
+
+  my ($user, $device, @ips) = map list($_), gets $tuple, '2', '0', '1';
+
+  # ("root", "device", "0.0.0.0", "127.0.0.1")
+
+=back

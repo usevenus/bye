@@ -1,0 +1,118 @@
+﻿
+=head1 NAME
+
+Venus - Boxing
+
+=cut
+
+=head1 ABSTRACT
+
+Boxing Values in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Box;
+
+  my $box = Venus::Box->new(value => 'hello');
+
+  $box->uppercase->unbox;
+
+  # "HELLO"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Box> wraps any value and provides a fluent interface for chaining
+method calls. Each method call returns a new box containing the result,
+allowing transformations to be composed elegantly.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of boxing in Venus.
+
+=cut
+
+=over 4
+
+=item box.0
+
+Use C<Venus::Box> to wrap a value and chain transformations.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Box;
+
+  my $box = Venus::Box->new(value => [3, 1, 4, 1, 5]);
+
+  my $result = $box->sort->join('-')->unbox;
+
+  # "1-1-3-4-5"
+
+=back
+
+=over 4
+
+=item box.1
+
+Methods are proxied to the underlying value and return a new box.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Box;
+
+  my $box = Venus::Box->new(value => 42);
+
+  my $result = $box->add(8)->unbox;
+
+  # 50
+
+=back
+
+=over 4
+
+=item box.2
+
+Use C<unbox> to extract the final value from a box.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Box;
+
+  my $box = Venus::Box->new(value => { name => 'venus' });
+
+  my $result = $box->get('name')->unbox;
+
+  # "venus"
+
+=back
+
+=over 4
+
+=item box.3
+
+Use the C<box> function from Venus for convenient boxing.
+
+B<example 1>
+
+  package main;
+
+  use Venus 'box';
+
+  my $result = box('hello world')->split(' ')->count->unbox;
+
+  # 2
+
+=back

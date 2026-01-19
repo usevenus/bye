@@ -1,0 +1,135 @@
+﻿
+=head1 NAME
+
+Venus - Vars
+
+=cut
+
+=head1 ABSTRACT
+
+Vars in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Vars;
+
+  local %ENV = (HOME => '/home/user', PATH => '/usr/bin');
+
+  my $vars = Venus::Vars->new(named => { home => 'HOME' });
+
+  $vars->get('home');
+
+  # "/home/user"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Vars> provides access to environment variables via C<%ENV>. Use
+C<named> to map variable names and C<get> to retrieve values.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of environment variable handling in Venus.
+
+=cut
+
+=over 4
+
+=item vars.0
+
+Use C<get> to access environment variables.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Vars;
+
+  local %ENV = (USER => 'alice');
+
+  my $vars = Venus::Vars->new(named => { user => 'USER' });
+
+  $vars->get('user');
+
+  # "alice"
+
+=back
+
+=over 4
+
+=item vars.1
+
+Use C<exists> to check if an environment variable is set.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Vars;
+
+  local %ENV = (DEBUG => '1');
+
+  my $vars = Venus::Vars->new(named => { debug => 'DEBUG', verbose => 'VERBOSE' });
+
+  $vars->exists('verbose') ? 'has verbose' : 'no verbose';
+
+  # "no verbose"
+
+=back
+
+=over 4
+
+=item vars.2
+
+Use C<set> to modify environment variables.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Vars;
+
+  local %ENV = ();
+
+  my $vars = Venus::Vars->new(named => { api_key => 'API_KEY' });
+
+  $vars->set('api_key', 'secret123');
+
+  $vars->get('api_key');
+
+  # "secret123"
+
+=back
+
+=over 4
+
+=item vars.3
+
+Access multiple environment variables.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Vars;
+
+  local %ENV = (HOST => 'localhost', PORT => '8080');
+
+  my $vars = Venus::Vars->new(named => { host => 'HOST', port => 'PORT' });
+
+  my $host = $vars->get('host');
+
+  my $port = $vars->get('port');
+
+  "$host:$port";
+
+  # "localhost:8080"
+
+=back

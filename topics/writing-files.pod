@@ -1,0 +1,157 @@
+﻿
+=head1 NAME
+
+Venus - Writing Files
+
+=cut
+
+=head1 ABSTRACT
+
+Writing Files in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_write_test.txt');
+
+  $path->write("Hello, Venus!");
+
+  my $content = $path->read;
+
+  $path->unlink;
+
+  $content;
+
+  # "Hello, Venus!"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Path> provides methods for writing file contents. Use C<write> to
+overwrite a file, C<append> to add content, and C<mkfile> to create files.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of writing files in Venus.
+
+=cut
+
+=over 4
+
+=item write.0
+
+Use C<write> to create or overwrite a file.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_write_0.txt');
+
+  $path->write("First write");
+
+  $path->write("Second write");
+
+  my $content = $path->read;
+
+  $path->unlink;
+
+  $content;
+
+  # "Second write"
+
+=back
+
+=over 4
+
+=item write.1
+
+Use C<mkfile> to create an empty file.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_write_1.txt');
+
+  $path->mkfile;
+
+  my $exists = $path->exists ? 'created' : 'missing';
+
+  $path->unlink;
+
+  $exists;
+
+  # "created"
+
+=back
+
+=over 4
+
+=item write.2
+
+Write multi-line content to a file.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $path = Venus::Path->new('/tmp/venus_write_2.txt');
+
+  $path->write("Line 1\nLine 2\nLine 3");
+
+  my $lines = $path->lines;
+
+  $path->unlink;
+
+  scalar @$lines;
+
+  # 3
+
+=back
+
+=over 4
+
+=item write.3
+
+Create a directory and write a file using C<mkdir> and C<child>.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Path;
+
+  my $dir = Venus::Path->new('/tmp/venus_write_test_dir');
+
+  $dir->mkdir;
+
+  my $file = $dir->child('file.txt');
+
+  $file->write("test content");
+
+  my $exists = $file->exists ? 'created' : 'missing';
+
+  $file->unlink;
+
+  $dir->rmdir;
+
+  $exists;
+
+  # "created"
+
+=back

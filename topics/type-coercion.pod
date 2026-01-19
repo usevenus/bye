@@ -1,0 +1,117 @@
+﻿
+=head1 NAME
+
+Venus - Type Coercion
+
+=cut
+
+=head1 ABSTRACT
+
+Type Coercion in Venus
+
+=cut
+
+=head1 SYNOPSIS
+
+  package main;
+
+  use Venus::Coercion;
+
+  my $coercion = Venus::Coercion->new;
+
+  $coercion->accept('string');
+
+  $coercion->format(sub { uc $_ });
+
+  $coercion->result('hello');
+
+  # "HELLO"
+
+=cut
+
+=head1 DESCRIPTION
+
+L<Venus::Coercion> transforms values from one form to another. It accepts type
+constraints and applies formatters to coerce values into the desired shape.
+
+=cut
+
+=head1 EXAMPLES
+
+The following are examples of type coercion in Venus.
+
+=cut
+
+=over 4
+
+=item coercion.0
+
+Use C<accept> and C<format> to define a coercion.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Coercion;
+
+  my $coercion = Venus::Coercion->new;
+
+  $coercion->accept('number');
+
+  $coercion->format(sub { $_ * 2 });
+
+  my $result = $coercion->result(5);
+
+  # 10
+
+=back
+
+=over 4
+
+=item coercion.1
+
+Chain multiple formatters for complex transformations.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Coercion;
+
+  my $coercion = Venus::Coercion->new;
+
+  $coercion->accept('string');
+
+  $coercion->format(sub { $_ . '!' });
+
+  $coercion->format(sub { uc $_ });
+
+  my $result = $coercion->result('hello');
+
+  # "HELLO!"
+
+=back
+
+=over 4
+
+=item coercion.2
+
+Use C<Venus::Type> to create coercions from type expressions.
+
+B<example 1>
+
+  package main;
+
+  use Venus::Type;
+
+  my $type = Venus::Type->new;
+
+  my $coercion = $type->coercion('arrayref');
+
+  $coercion->format(sub { scalar @{$_} });
+
+  my $result = $coercion->result([1, 2, 3]);
+
+  # 3
+
+=back
