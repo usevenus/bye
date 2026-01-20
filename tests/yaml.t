@@ -5,10 +5,13 @@ use 5.018;
 use strict;
 use warnings;
 
-use Venus;
+use Venus 'catch';
+
 use Venus::Test;
 
 my $test = test(__FILE__);
+
+my $okay = catch {Venus::yaml()->package} ? false : true;
 
 =name
 
@@ -50,7 +53,7 @@ $test->for('abstract');
 
 =cut
 
-$test->for('synopsis', sub {
+$test->gate('has_yaml_package', sub{$okay})->for('synopsis', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'valid');
@@ -93,7 +96,7 @@ Use C<encode> to convert data to YAML.
 
 =cut
 
-$test->for('example', 1, 'yaml.0', sub {
+$test->gate('has_yaml_package', sub{$okay})->for('example', 1, 'yaml.0', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'valid');
@@ -121,7 +124,7 @@ Use C<decode> to parse YAML strings.
 
 =cut
 
-$test->for('example', 1, 'yaml.1', sub {
+$test->gate('has_yaml_package', sub{$okay})->for('example', 1, 'yaml.1', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'NYC');
@@ -151,7 +154,7 @@ Encode nested structures to YAML.
 
 =cut
 
-$test->for('example', 1, 'yaml.2', sub {
+$test->gate('has_yaml_package', sub{$okay})->for('example', 1, 'yaml.2', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'has nested');
@@ -185,7 +188,7 @@ Round-trip encoding and decoding.
 
 =cut
 
-$test->for('example', 1, 'yaml.3', sub {
+$test->gate('has_yaml_package', sub{$okay})->for('example', 1, 'yaml.3', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 3);

@@ -5,10 +5,13 @@ use 5.018;
 use strict;
 use warnings;
 
-use Venus;
+use Venus 'catch';
+
 use Venus::Test;
 
 my $test = test(__FILE__);
+
+my $okay = catch {Venus::json()->package} ? false : true;
 
 =name
 
@@ -50,7 +53,7 @@ $test->for('abstract');
 
 =cut
 
-$test->for('synopsis', sub {
+$test->gate('has_json_package', sub{$okay})->for('synopsis', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'has name');
@@ -93,7 +96,7 @@ Use C<encode> to convert data to JSON.
 
 =cut
 
-$test->for('example', 1, 'json.0', sub {
+$test->gate('has_json_package', sub{$okay})->for('example', 1, 'json.0', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'valid');
@@ -121,7 +124,7 @@ Use C<decode> to parse JSON strings.
 
 =cut
 
-$test->for('example', 1, 'json.1', sub {
+$test->gate('has_json_package', sub{$okay})->for('example', 1, 'json.1', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'NYC');
@@ -149,7 +152,7 @@ Encode arrays to JSON.
 
 =cut
 
-$test->for('example', 1, 'json.2', sub {
+$test->gate('has_json_package', sub{$okay})->for('example', 1, 'json.2', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 'is array');
@@ -183,7 +186,7 @@ Round-trip encoding and decoding.
 
 =cut
 
-$test->for('example', 1, 'json.3', sub {
+$test->gate('has_json_package', sub{$okay})->for('example', 1, 'json.3', sub {
   my ($tryable) = @_;
   my $result = $tryable->result;
   $test->is($result, 3);

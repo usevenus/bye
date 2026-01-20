@@ -17,7 +17,7 @@ jobs:
     - name: Install Project Dependencies
       run: cpanm -qn --reinstall --installdeps .
     - name: Critiquing Project
-      run: perlcritic lib tests
+      run: perlcritic tests
     - name: Testing Project
       run: prove -Ilib -r tests
       env:

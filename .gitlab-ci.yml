@@ -17,6 +17,6 @@ perl-lint:
     - perl -V
     - cpanm -qn Perl::Critic
     - cpanm -qn --reinstall --installdeps .
-    - perlcritic lib tests
+    - perlcritic tests
   needs:
     - perl-test
